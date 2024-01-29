@@ -6,7 +6,7 @@
 /*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 08:40:09 by rchahban          #+#    #+#             */
-/*   Updated: 2024/01/26 12:33:50 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:37:32 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,12 @@ int	handle_invalid_identifier(char *id, char **str)
 
 int	handle_color_ids(char **str, char *id, t_element *list, char *line)
 {
-	int		len;
 	char	*tmp_str;
 	char	*temp;
 	char	**spl;
 	char	**colors;
 
-	spl = ft_split(line, ' ');
+	spl = custom_split(line);
 	temp = join_2d_arr(spl);
 	tmp_str = NULL;
 	if (temp)
@@ -75,8 +74,8 @@ int	handle_color_ids(char **str, char *id, t_element *list, char *line)
 	if (temp)
 		free(temp);
 	colors = NULL;
-	colors = run_operations(&len, str);
-	if (is_valid_color_id(len, colors))
+	colors = run_operations(line);
+	if (is_valid_color_id(colors))
 		handle_valid_color_id(list, spl, id, colors);
 	else
 		return (handle_invalid_color_id(id, colors, spl, str));

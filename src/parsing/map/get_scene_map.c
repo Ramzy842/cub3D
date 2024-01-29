@@ -6,7 +6,7 @@
 /*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 12:41:42 by rchahban          #+#    #+#             */
-/*   Updated: 2024/01/27 13:43:25 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:53:49 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,25 @@ void	assign_value_to_line(char *line, char *str, char **map, int *count)
 	(*count)++;
 }
 
+int	is_map_end(char **scene, int increment)
+{
+	char	*tmp;
+
+	while (scene[increment])
+	{
+		tmp = ft_strtrim(scene[increment], " \t\n\r");
+		if (ft_strlen(tmp))
+		{
+			free(tmp);
+			return (0);
+		}
+		free(tmp);
+		tmp = NULL;
+		increment++;
+	}
+	return (1);
+}
+
 char	**get_scene_map(char **scene, int map_lines, int *map_start_pos)
 {
 	char	**map;
@@ -50,7 +69,9 @@ char	**get_scene_map(char **scene, int map_lines, int *map_start_pos)
 		str = ft_strtrim(scene[*map_start_pos], " \t\n\r");
 		if (!ft_strlen(str))
 		{
-			if (!handle_empty_str(str, map))
+			if (is_map_end(scene, *map_start_pos + 1))
+				return (map);
+			else if (!handle_empty_str(str, map))
 				return (NULL);
 		}
 		else

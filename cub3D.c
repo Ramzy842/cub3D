@@ -6,7 +6,7 @@
 /*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:24:19 by rchahban          #+#    #+#             */
-/*   Updated: 2024/01/27 13:43:09 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:50:25 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	process_scene_config(t_scene *scene, char **scene_config, t_element **list)
 	if (ft_2d_len(scene->scene_info) < 6)
 		return (1);
 	map_lines = get_map_count(scene_config, &map_start_pos);
+	scene->map = NULL;
 	scene->temp_map = get_scene_map(scene_config, map_lines, &map_start_pos);
 	if (!scene->temp_map)
 	{

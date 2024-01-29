@@ -6,7 +6,7 @@
 /*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 14:03:20 by rchahban          #+#    #+#             */
-/*   Updated: 2024/01/27 11:29:16 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:37:50 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ int		is_rgb_number(int nbr);
 int		is_already_found(t_element *list, char *i, char *str);
 int		map_contains_player(char **map);
 char	**custom_split2(char *s);
-int		is_valid_color_id(int len, char **colors);
-char	**run_operations(int *len, char **str);
+int		is_valid_color_id(char **colors);
+char	**run_operations(char *str);
 char	**rebuild_map(char **map, int biggest_len);
 char	**get_scene_map(char **scene, int map_lines, int *map_start_pos);
 int		get_map_count(char **scene, int *map_start);
@@ -114,7 +114,7 @@ void	free_stack(t_Stack *stack);
 void	free_stacks(t_scene *scene, t_Node *popped);
 void	free_nodes(t_Node *head);
 void	create_stacks(t_scene *scene);
-
+void	print_2d_arr(char **colors);
 int		handle_path_ids(t_element *list, char *id, char **str);
 int		valid_scene_info(char **scene_info, t_element *list);
 int		handle_color_ids(char **str, char *id, t_element *list, char *line);
