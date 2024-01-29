@@ -6,7 +6,7 @@
 /*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 22:29:09 by rchahban          #+#    #+#             */
-/*   Updated: 2024/01/27 13:42:00 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:38:39 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ void	print_char(char c)
 		printf("\x1b[35m%c\x1b[0m", c);
 	else
 		printf("%c", c);
+}
+
+void	print_2d_arr(char **colors)
+{
+	int	x;
+
+	x = 0;
+	while (colors[x])
+	{
+		printf("%s\n", colors[x]);
+		x++;
+	}
+	printf("-------------------------------------\n");
 }
 
 void	print_map(char **map)
