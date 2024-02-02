@@ -6,7 +6,7 @@
 #    By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 11:22:05 by rchahban          #+#    #+#              #
-#    Updated: 2024/01/29 22:54:08 by rchahban         ###   ########.fr        #
+#    Updated: 2024/02/02 18:13:22 by rchahban         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC = cc
 
 # Flags to pass to the compiler
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror  -g -fsanitize=address
 
 # Includes (.h)
 INCLUDES = -I./includes
@@ -50,7 +50,7 @@ SRC = cub3D.c \
 	./src/parsing/map/map_is_sorrounded_by_walls.c ./src/parsing/map/valid_map.c ./src/utils/helpers/custom_split2.c \
 	./src/parsing/scene_info/handle_color_ids_utils.c ./src/parsing/map/rebuild_map.c \
 	./src/parsing/map/get_scene_map.c ./src/parsing/map/get_map_count.c ./src/parsing/scene_info/get_scene_info.c \
-	./src/parsing/scene_info/get_scene_info_count.c \
+	./src/parsing/scene_info/get_scene_info_count.c ./src/utils/helpers/ft_bzero.c ./src/utils/helpers/ft_memset.c \
 # Object files for the cub3D executable, generated from the source files
 OBJ = $(SRC:.c=.o)
 
@@ -62,7 +62,7 @@ all: $(NAME)
 
 # Generate the cub3D executable from the object files
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) ./MLX42/build/libmlx42.a -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"  -o $(NAME)
 
 # Generate the object files from the source files
 %.o: %.c

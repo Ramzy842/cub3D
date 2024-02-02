@@ -6,7 +6,7 @@
 /*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 12:33:33 by rchahban          #+#    #+#             */
-/*   Updated: 2024/01/29 19:04:55 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/01 23:28:33 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**trim_arr(char **colors)
 
 	x = 0;
 	str = NULL;
-	new_colors = malloc((sizeof(char *) + 1) * ft_2d_len(colors));
+	new_colors = malloc((sizeof(char *)) * (ft_2d_len(colors) + 1));
 	if (!new_colors)
 		return (NULL);
 	while (colors[x])
