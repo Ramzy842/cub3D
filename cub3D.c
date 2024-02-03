@@ -6,7 +6,7 @@
 /*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:24:19 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/03 00:10:48 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/03 01:22:22 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int check_wall(t_scene *scene)
     }
 }
 
-int map_has_wall(t_mymlx *mymlx, double x, double y)
+int map_has_wall(t_scene *scene, double x, double y)
 
 {
 
@@ -78,12 +78,12 @@ int map_has_wall(t_mymlx *mymlx, double x, double y)
     int mapgridindexY = (int)floor(y / 32);
     char mapcontent;
 
-    if (mapgridindexX >= mymlx->num_col)
+    if (mapgridindexX >= scene->map_cols)
         return true;
 
-    if (mapgridindexY >= mymlx->num_rows)
+    if (mapgridindexY >= scene->map_rows)
         return true;
-    mapcontent = mymlx->splited[mapgridindexY][mapgridindexX];
+    mapcontent = scene->map[mapgridindexY][mapgridindexX];
     return mapcontent == '1';
 }
 
@@ -96,112 +96,112 @@ double normalize_angle(double angle)
     return angle;
 }
 
-void isHorizontal(t_mymlx *mymlx)
+void isHorizontal(t_scene *scene)
 {
 
-    mymlx->ray_angle = normalize_angle(mymlx->ray_angle);
+   scene->mymlx->ray_angle = normalize_angle(scene->mymlx->ray_angle);
     //   normalize_angle(mymlx->ray_angle);
 
-    mymlx->RayFaceDown = mymlx->ray_angle > 0 && mymlx->ray_angle < M_PI;
-    mymlx->RayFaceUp = !mymlx->RayFaceDown;
-    mymlx->RayFaceRight = mymlx->ray_angle < 0.5 * M_PI || mymlx->ray_angle > 1.5 * M_PI;
-    mymlx->RayFaceLeft = !mymlx->RayFaceRight;
+    scene->mymlx->RayFaceDown = scene->mymlx->ray_angle > 0 && scene->mymlx->ray_angle < M_PI;
+    scene->mymlx->RayFaceUp = !scene->mymlx->RayFaceDown;
+    scene->mymlx->RayFaceRight = scene->mymlx->ray_angle < 0.5 * M_PI || scene->mymlx->ray_angle > 1.5 * M_PI;
+    scene->mymlx->RayFaceLeft = !scene->mymlx->RayFaceRight;
 
     // horizontal
-    mymlx->foundHorizWall = false;
-    mymlx->horiwallhitX = mymlx->x;
-    mymlx->horiwallhitY = mymlx->y;
+    scene->mymlx->foundHorizWall = false;
+    scene->mymlx->horiwallhitX = scene->mymlx->x;
+    scene->mymlx->horiwallhitY = scene->mymlx->y;
     // mymlx->horzwallcontent = 0;
 
-    mymlx->Hyintercept = (int)(mymlx->y / 32) * 32;
-    if (mymlx->RayFaceDown)
-        mymlx->Hyintercept += 32;
+    scene->mymlx->Hyintercept = (int)(scene->mymlx->y / 32) * 32;
+    if (scene->mymlx->RayFaceDown)
+        scene->mymlx->Hyintercept += 32;
     // else
         // mymlx->Hyintercept -= 0.1;
-    mymlx->Hxintercept = mymlx->x + (mymlx->Hyintercept - mymlx->y) / tan(mymlx->ray_angle);
-    mymlx->ystep = 32;
-    if (mymlx->RayFaceUp)
-        mymlx->ystep = -mymlx->ystep;
-    mymlx->xstep = mymlx->ystep / tan(mymlx->ray_angle); // ki7ma9 ila derti 32/tan(rayangle);
+    scene->mymlx->Hxintercept = scene->mymlx->x + (scene->mymlx->Hyintercept - scene->mymlx->y) / tan(scene->mymlx->ray_angle);
+    scene->mymlx->ystep = 32;
+    if (scene->mymlx->RayFaceUp)
+        scene->mymlx->ystep = -scene->mymlx->ystep;
+    scene->mymlx->xstep = scene->mymlx->ystep / tan(scene->mymlx->ray_angle); // ki7ma9 ila derti 32/tan(rayangle);
     // mymlx->xstep *=(mymlx->RayFaceLeft && mymlx->xstep >0) ?-1 :1;
     // mymlx->xstep *=(mymlx->RayFaceRight && mymlx->xstep <0) ?-1 :1;
-    mymlx->nexthorztouchX = mymlx->Hxintercept;
-    mymlx->nexthorztouchY = mymlx->Hyintercept;
+    scene->mymlx->nexthorztouchX = scene->mymlx->Hxintercept;
+    scene->mymlx->nexthorztouchY = scene->mymlx->Hyintercept;
 
-    while (mymlx->nexthorztouchX >= 0 && mymlx->nexthorztouchX <=WIDTH && mymlx->nexthorztouchY >= 0 && mymlx->nexthorztouchY <=HEIGHT)
+    while (scene->mymlx->nexthorztouchX >= 0 && scene->mymlx->nexthorztouchX <=WIDTH && scene->mymlx->nexthorztouchY >= 0 && scene->mymlx->nexthorztouchY <=HEIGHT)
     {
-        mymlx->xtocheck = mymlx->nexthorztouchX;
-        mymlx->ytocheck = mymlx->nexthorztouchY;
-        if (mymlx->RayFaceUp)
-            mymlx->ytocheck -= 1;
+        scene->mymlx->xtocheck = scene->mymlx->nexthorztouchX;
+        scene->mymlx->ytocheck = scene->mymlx->nexthorztouchY;
+        if (scene->mymlx->RayFaceUp)
+            scene->mymlx->ytocheck -= 1;
 
-        if (map_has_wall(mymlx, mymlx->xtocheck, mymlx->ytocheck))
+        if (map_has_wall(scene, scene->mymlx->xtocheck, scene->mymlx->ytocheck))
         {
-            mymlx->horiwallhitX = mymlx->nexthorztouchX;
-            mymlx->horiwallhitY = mymlx->nexthorztouchY;
-            mymlx->foundHorizWall = true;
+            scene->mymlx->horiwallhitX = scene->mymlx->nexthorztouchX;
+            scene->mymlx->horiwallhitY = scene->mymlx->nexthorztouchY;
+            scene->mymlx->foundHorizWall = true;
             break;
         }
         else
         {
-            mymlx->nexthorztouchX += mymlx->xstep;
-            mymlx->nexthorztouchY += mymlx->ystep;
+            scene->mymlx->nexthorztouchX += scene->mymlx->xstep;
+            scene->mymlx->nexthorztouchY += scene->mymlx->ystep;
         }
     }
 }
 
 
 
-void isVertical(t_mymlx *mymlx)
+void isVertical(t_scene *scene)
 {
 
-    mymlx->ray_angle = normalize_angle(mymlx->ray_angle);
-    mymlx->foundVertWall = false;
-    mymlx->VertwallhitX = mymlx->x;
-    mymlx->VertwallhitY = mymlx->y;
+    scene->mymlx->ray_angle = normalize_angle(scene->mymlx->ray_angle);
+    scene->mymlx->foundVertWall = false;
+    scene->mymlx->VertwallhitX = scene->mymlx->x;
+    scene->mymlx->VertwallhitY = scene->mymlx->y;
     // mymlx->Vertwallcontent = 0;
     // find x coordinate of the closed vertical grid intersection
-    mymlx->Vxintercept = (int)(mymlx->x / 32) * 32;
+    scene->mymlx->Vxintercept = (int)(scene->mymlx->x / 32) * 32;
     //  mymlx->Vxintercept += mymlx->RayFaceRight ? 32 : -0.001; //0.0001 for wall yban mzn
-    if (mymlx->RayFaceRight)
-        mymlx->Vxintercept += 32;
+    if (scene->mymlx->RayFaceRight)
+        scene->mymlx->Vxintercept += 32;
     // else
         // mymlx->Vxintercept -= 0.1;
     // find the y ccordinate of the closed vertical gerid intersection
-    mymlx->Vyintercept = mymlx->y + (mymlx->Vxintercept - mymlx->x) * tan(mymlx->ray_angle);
-    mymlx->xstep = 32;
+    scene->mymlx->Vyintercept = scene->mymlx->y + (scene->mymlx->Vxintercept - scene->mymlx->x) * tan(scene->mymlx->ray_angle);
+    scene->mymlx->xstep = 32;
     // mymlx->xstep *=mymlx->RayFaceLeft ?-1 :1;
-    if (mymlx->RayFaceLeft)
-        mymlx->xstep = -mymlx->xstep;
-    mymlx->ystep = 32 * tan(mymlx->ray_angle);
+    if (scene->mymlx->RayFaceLeft)
+        scene->mymlx->xstep = -scene->mymlx->xstep;
+    scene->mymlx->ystep = 32 * tan(scene->mymlx->ray_angle);
     // mymlx->ystep *=(mymlx->RayFaceUp && mymlx->ystep >0) ?-1 :1;
-    if (mymlx->RayFaceUp && mymlx->ystep > 0)
-        mymlx->ystep = -mymlx->ystep;
-    else if (mymlx->RayFaceDown && mymlx->ystep < 0)
+    if (scene->mymlx->RayFaceUp && scene->mymlx->ystep > 0)
+        scene->mymlx->ystep = -scene->mymlx->ystep;
+    else if (scene->mymlx->RayFaceDown && scene->mymlx->ystep < 0)
     {
-        mymlx->ystep = -mymlx->ystep;
+        scene->mymlx->ystep = -scene->mymlx->ystep;
     }
 
-    double nextVerttouchX = mymlx->Vxintercept;
-    double nextVerttouchY = mymlx->Vyintercept;
+    double nextVerttouchX = scene->mymlx->Vxintercept;
+    double nextVerttouchY = scene->mymlx->Vyintercept;
 
     while (nextVerttouchX >= 0 && nextVerttouchX <= WIDTH && nextVerttouchY >= 0 && nextVerttouchY <=HEIGHT)
     {
         double xtocheck = nextVerttouchX;
         double ytocheck = nextVerttouchY;
-                if (mymlx->RayFaceLeft)
+                if (scene->mymlx->RayFaceLeft)
                   xtocheck-= 1;
-        if (map_has_wall(mymlx, xtocheck, ytocheck))
+        if (map_has_wall(scene, xtocheck, ytocheck))
         {
-            mymlx->VertwallhitX = nextVerttouchX;
-            mymlx->VertwallhitY = nextVerttouchY;
-            mymlx->foundVertWall = true;
+            scene->mymlx->VertwallhitX = nextVerttouchX;
+            scene->mymlx->VertwallhitY = nextVerttouchY;
+            scene->mymlx->foundVertWall = true;
             break;
         }
         else
         {
-            nextVerttouchX += mymlx->xstep;
-            nextVerttouchY += mymlx->ystep;
+            nextVerttouchX += scene->mymlx->xstep;
+            nextVerttouchY += scene->mymlx->ystep;
         }
     }
 }
@@ -336,26 +336,27 @@ void	threeDrendring(t_mymlx *mymlx, int  i)
 	// ceiling(mymlx, i);
 }
 
-void cast_all_rays(t_mymlx *mymlx)
+void cast_all_rays(t_scene *scene)
 {
     int colum_id = 0;
-    mymlx->ray_angle = mymlx->rotation_angle - (mymlx->fov_angle / 2);
-    while (colum_id < mymlx->num_rays)
+    scene->mymlx->ray_angle = scene->mymlx->rotation_angle - (scene->mymlx->fov_angle / 2);
+    while (colum_id < scene->mymlx->num_rays)
     {
-
-        isHorizontal(mymlx);
-        isVertical(mymlx);
-        mymlx->ray_angle += mymlx->fov_angle / mymlx->num_rays;
-        if (mymlx->foundHorizWall)
-            mymlx->horzHitDistance = distanceBetweenPoints(mymlx->x, mymlx->y, mymlx->horiwallhitX, mymlx->horiwallhitY);
+		
+        isHorizontal(scene);
+		printf(" scene->mymlx->horiwallhitX == %d\n",  scene->mymlx->horiwallhitX);
+        isVertical(scene);
+        scene->mymlx->ray_angle += scene->mymlx->fov_angle / scene->mymlx->num_rays;
+        if (scene->mymlx->foundHorizWall)
+            scene->mymlx->horzHitDistance = distanceBetweenPoints(scene->mymlx->x, scene->mymlx->y, scene->mymlx->horiwallhitX, scene->mymlx->horiwallhitY);
         else
-            mymlx->horzHitDistance = 90000000000;
-        if (mymlx->foundVertWall)
-            mymlx->vertHitDistance = distanceBetweenPoints(mymlx->x, mymlx->y, mymlx->VertwallhitX, mymlx->VertwallhitY);
+            scene->mymlx->horzHitDistance = 90000000000;
+        if (scene->mymlx->foundVertWall)
+            scene->mymlx->vertHitDistance = distanceBetweenPoints(scene->mymlx->x, scene->mymlx->y, scene->mymlx->VertwallhitX, scene->mymlx->VertwallhitY);
         else
-            mymlx->vertHitDistance = 90000000000;
-        calculateDistance(mymlx);
-        threeDrendring(mymlx, colum_id);
+            scene->mymlx->vertHitDistance = 90000000000;
+        calculateDistance(scene->mymlx);
+        threeDrendring(scene->mymlx, colum_id);
         colum_id++;
     }
 }
@@ -411,6 +412,7 @@ void checkDir(t_mymlx *mymlx, double rotation_angle)
 
 int is_move_allowed(t_scene *scene)
 {
+	printf("scene->map[(int)scene->mymlx->YisAllowed / 32][(int)scene->mymlx->XisAllowed / 32] %c\n", scene->map[(int)scene->mymlx->YisAllowed / 32][(int)scene->mymlx->XisAllowed / 32]);
     return (scene->map[(int)scene->mymlx->YisAllowed / 32][(int)scene->mymlx->XisAllowed / 32] != '1');
 }
 
@@ -455,13 +457,12 @@ void print_grid(t_scene *scene)
         {
             double tile_x = j * 32;
             double tile_y = i * 32;
-            if (scene->map[i][j] == '1')
+            if (scene->map[i][j] == '1' || scene->map[i][j] == 'V')
             {
                 rect(tile_x, tile_y, scene, 1);
             }
-           if (scene->map[i][j] == '0' ||  scene->map[i][j] == 'N' || scene->map[i][j] == 'S' || scene->map[i][j] == 'W' || scene->map[i][j] == 'E' )
+           if (scene->map[i][j] == '0' ||  scene->map[i][j] == 'N' || scene->map[i][j] == 'S' || scene->map[i][j] == 'W' || scene->map[i][j] == 'E'  )
             {
-             
                 rect(tile_x, tile_y, scene, 0);
             }
         }
@@ -480,8 +481,8 @@ void draw_player_view(t_mymlx *mymlx)
 void ft_hook(void *param)
 {
     t_scene *scene = (t_scene*)param;
-	scene->mymlx->x = scene->x;
-	scene->mymlx->y = scene->y;;
+	// scene->mymlx->x = scene->x;
+	// scene->mymlx->y = scene->y;
     scene->mymlx->dirY = scene->mymlx->y;
     scene->mymlx->dirX = scene->mymlx->x;
     scene->mymlx->YisAllowed = scene->mymlx->y;
@@ -525,13 +526,10 @@ void ft_hook(void *param)
         scene->mymlx->y = scene->mymlx->YisAllowed;
     }   
     print_grid(scene);
-    cast_all_rays(scene->mymlx);
+    cast_all_rays(scene);
     draw_player_view(scene->mymlx);
-      drawCircle(scene->mymlx, scene->mymlx->radius, scene->mymlx->circleColor);
+    drawCircle(scene->mymlx, scene->mymlx->radius, scene->mymlx->circleColor);
 }
-
-
-
 
 
 void drawLineDDA(t_mymlx *mymlx, int x1, int y1, int x2, int y2, int color)
@@ -594,7 +592,7 @@ int	initiate_gfx(t_scene *scene)
 
     scene->mymlx->radius = 4; // circle player radius
    	scene->mymlx->circleColor = 0x00FF000;
-    scene->mymlx->movespeed = 2.0;//  4 pixel /fram
+    scene->mymlx->movespeed = 4.0;//  4 pixel /fram
     //(M_PI/180) == convert to radian
     scene->mymlx->rotation_speed = scene->mymlx->movespeed * (M_PI / 180); // amounth by which the player rotation angle will change per frame
     printf("player type == %c\n",scene->player_type);
@@ -614,6 +612,12 @@ int	initiate_gfx(t_scene *scene)
     // print_grid(mymlx);
     // printf("scene->mymlx->x  == %f || scene->mymlx->y %f\n",scene->mymlx->x , scene->mymlx->y);
     playertype( scene);
+		scene->mymlx->x = scene->x;
+	scene->mymlx->y = scene->y;
+	//     scene->mymlx->dirY = scene->mymlx->y;
+    // scene->mymlx->dirX = scene->mymlx->x;
+    // scene->mymlx->YisAllowed = scene->mymlx->y;
+    // scene->mymlx->XisAllowed = scene->mymlx->x;
     mlx_loop_hook(scene->mymlx->mlx, ft_hook, scene);
     mlx_loop(scene->mymlx->mlx);
     // mlx_terminate(scene->mymlx->mlx);
