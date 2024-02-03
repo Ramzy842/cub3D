@@ -6,7 +6,7 @@
 /*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:24:19 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/03 01:22:22 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/04 00:06:49 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,7 +344,7 @@ void cast_all_rays(t_scene *scene)
     {
 		
         isHorizontal(scene);
-		printf(" scene->mymlx->horiwallhitX == %d\n",  scene->mymlx->horiwallhitX);
+		// printf(" scene->mymlx->horiwallhitX == %d\n",  scene->mymlx->horiwallhitX);
         isVertical(scene);
         scene->mymlx->ray_angle += scene->mymlx->fov_angle / scene->mymlx->num_rays;
         if (scene->mymlx->foundHorizWall)
@@ -412,7 +412,7 @@ void checkDir(t_mymlx *mymlx, double rotation_angle)
 
 int is_move_allowed(t_scene *scene)
 {
-	printf("scene->map[(int)scene->mymlx->YisAllowed / 32][(int)scene->mymlx->XisAllowed / 32] %c\n", scene->map[(int)scene->mymlx->YisAllowed / 32][(int)scene->mymlx->XisAllowed / 32]);
+	// printf("scene->map[(int)scene->mymlx->YisAllowed / 32][(int)scene->mymlx->XisAllowed / 32] %c\n", scene->map[(int)scene->mymlx->YisAllowed / 32][(int)scene->mymlx->XisAllowed / 32]);
     return (scene->map[(int)scene->mymlx->YisAllowed / 32][(int)scene->mymlx->XisAllowed / 32] != '1');
 }
 
@@ -566,7 +566,7 @@ void drawLineDDA(t_mymlx *mymlx, int x1, int y1, int x2, int y2, int color)
 
 void playertype(t_scene *scene)
 {
-	printf("mymlx->playertype == %c\n",scene->player_type);
+	// printf("mymlx->playertype == %c\n",scene->player_type);
     if (scene->player_type == 'N')
         scene->mymlx->rotation_angle =  M_PI;
     else if (scene->player_type == 'S')
@@ -575,6 +575,29 @@ void playertype(t_scene *scene)
         scene->mymlx->rotation_angle = M_PI / 2;
     else if (scene->player_type == 'W')
        scene->mymlx->rotation_angle =  3*M_PI / 2;
+}
+
+void	get_scene_info_values(t_scene *scene)
+{
+	t_element	*current;
+
+	current = scene->info_list;
+	while (current)
+	{
+		if (!ft_strcmp(current->id, "EA"))
+			scene->ea_texture = current->path;
+		else if (!ft_strcmp(current->id, "WE"))
+			scene->we_texture = current->path;
+		else if (!ft_strcmp(current->id, "SO"))
+			scene->so_texture = current->path;
+		else if (!ft_strcmp(current->id, "NO"))
+			scene->no_texture = current->path;
+		else if (!ft_strcmp(current->id, "F"))
+			scene->floor_colors = current->colors;
+		else if (!ft_strcmp(current->id, "C"))
+			scene->ceiling_colors = current->colors;
+		current = current->next;
+	}
 }
 
 int	initiate_gfx(t_scene *scene)
@@ -587,6 +610,13 @@ int	initiate_gfx(t_scene *scene)
     if (!scene->mymlx)
         return 1;
     ft_memset(scene->mymlx, 0, sizeof(t_mymlx));
+	get_scene_info_values(scene);
+	printf("no texture: %s\n", scene->no_texture);
+	printf("so texture: %s\n", scene->so_texture);
+	printf("we texture: %s\n", scene->we_texture);
+	printf("ea texture: %s\n", scene->ea_texture);
+	print_2d_arr(scene->ceiling_colors);
+	print_2d_arr(scene->floor_colors);
     scene->mymlx->rotation_angle = 0; // PLayer face angle up down right left  fix it later !!!
     scene->mymlx->fov_angle = 60 * (M_PI / 180);
 

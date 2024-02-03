@@ -6,7 +6,7 @@
 /*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 14:03:20 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/03 00:05:30 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/04 00:10:09 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,12 @@ typedef struct scene
 	double		y;
 	t_Stack		*s;
 	t_Stack		*visited;
+	char		*no_texture;
+	char		*so_texture;
+	char		*we_texture;
+	char		*ea_texture;
+	char		**ceiling_colors;
+	char		**floor_colors;
 }	t_scene;
 
 int		valid_extension(char *path);
