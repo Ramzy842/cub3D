@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+         #
+#    By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 11:22:05 by rchahban          #+#    #+#              #
-#    Updated: 2024/02/02 18:13:22 by rchahban         ###   ########.fr        #
+#    Updated: 2024/02/06 22:47:27 by mbouderr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,14 @@
 CC = cc
 
 # Flags to pass to the compiler
-CFLAGS = -Wall -Wextra -Werror  -g -fsanitize=address
+CFLAGS =  #-g -fsanitize=address
 
 # Includes (.h)
 INCLUDES = -I./includes
 
 # Source files for the cub3D executable
 SRC = cub3D.c \
+./texture.c\
 	./src/utils/get_next_line/get_next_line_utils.c \
 	./src/utils/get_next_line/get_next_line.c \
 	./src/parsing/extension_checker.c ./src/utils/helpers/ft_2d_len.c \

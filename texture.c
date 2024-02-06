@@ -1,51 +1,112 @@
 #include "./includes/cub3d.h"
 
-   void    text_So(t_scene *scene, int i)
+mlx_texture_t    *text_so(t_scene *scene)
 {
-    scene->mymlx->so = mlx_load_png(scene->so_texture);
+    scene->mymlx->so = mlx_load_png("/Users/mbouderr/Desktop/9lawi/BrickFireRed.png");
     if (scene->mymlx->so == NULL){
+            puts("No so texture\n");
         exit(0);
     }
+    return scene->mymlx->so;
 }
-   void    text_no(t_scene *scene, int i)
+ mlx_texture_t*   text_no(t_scene *scene)
 {
-    scene->mymlx->no = mlx_load_png(scene->no_texture);
+    scene->mymlx->no = mlx_load_png("/Users/mbouderr/Desktop/9lawi/BrickFireRed.png");
     if (scene->mymlx->no == NULL){
+                    puts("No no texture\n");
+
         exit(0);
     }
+    return scene->mymlx->no;
 }
-   void    text_ea(t_scene *scene, int i)
+  mlx_texture_t*    text_ea(t_scene *scene)
 {
-    scene->mymlx->ea = mlx_load_png(scene->ea_texture);
+    scene->mymlx->ea = mlx_load_png("/Users/mbouderr/Desktop/9lawi/BrickFireRed.png");
     if (scene->mymlx->ea == NULL){
+                    puts("No  ea texture\n");
+
         exit(0);
     }
+    return  scene->mymlx->ea;
 }
-   void    text_we(t_scene *scene, int i)
+ mlx_texture_t*    text_we(t_scene *scene)
 {
-    scene->mymlx->we = mlx_load_png(scene->we_texture);
+    scene->mymlx->we = mlx_load_png("/Users/mbouderr/Desktop/9lawi/BrickFireRed.png");
     if (scene->mymlx->we == NULL){
+                    puts("No we texture\n");
         exit(0);
     }
+    return scene->mymlx->we; 
 }
 
-void    dir_tex(t_scene *scene)
+
+
+void get_text(t_scene *scene)
 {
+     scene->mymlx->ea =   text_ea(scene);
+    scene->mymlx->no  = text_no(scene);
+    scene->mymlx->so =  text_so(scene);
+    scene->mymlx->we =  text_we(scene);
+}
+
  
 
-    if (scene->mymlx->horzHitDistance > scene->mymlx->vertHitDistance) 
-    {
-        if (scene->mymlx->RayFaceRight)
-            scene->mymlx->ea;
-        else   // Ray facing left 
-           scene->mymlx->we;
-    }
-    else
-    {
-        if (scene->mymlx->RayFaceUp)
-            scene->mymlx->no;
-        else    // Rayfacing down
-            scene->mymlx->so;
-    }
+
+int	get_rgba(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
+
+int	get_texture(t_scene *scene,t_mymlx *mymlx, mlx_texture_t *texture, int offset_x , int y)
+{
+	int	offset_y;
+	int	index;
+
+
+    if (!texture || texture->height != 32 || texture->width != 32){
+        printf("no texture found\n");
+        return 0;
+        }
+	offset_y = (y - (HEIGHT / 2) - (mymlx->s_3d.wallStripHeight / 2))* ((float )32/ mymlx->s_3d.wallStripHeight);
+	index = (offset_y * 32 + offset_x) * 4;
+    return (get_rgba(texture->pixels[index], texture->pixels[index + 1], texture->pixels[index + 2], texture->pixels[index + 3]));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+// void    dir_tex(t_scene *scene)
+// {
+ 
+
+//     if (scene->mymlx->horzHitDistance > scene->mymlx->vertHitDistance) 
+//     {
+//         if (scene->mymlx->RayFaceRight)
+//             scene->mymlx->ea;
+//         else   // Ray facing left 
+//            scene->mymlx->we;
+//     }
+//     else
+//     {
+//         if (scene->mymlx->RayFaceUp)
+//             scene->mymlx->no;
+//         else  
+//             mlx_put_pixel(mymlx->mlx,) scene->mymlx->so;
+//     }
+// }

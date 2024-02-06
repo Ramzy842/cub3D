@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 14:03:20 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/04 00:10:09 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:41:05 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,16 @@ typedef struct s_mymlx
   double heightwall;
   int idx;
   float mypi;
-
+  mlx_texture_t *ea;
+  mlx_texture_t *so;
+  mlx_texture_t *we;
+  mlx_texture_t *no;
+  int cred;
+  int cgreen;
+  int cblue;
+  int fgreen;
+  int fblue;
+  int fred;
 } t_mymlx;
 
 // RAYCASTING
@@ -280,4 +289,6 @@ void	display_list(t_element	*head);
 // int is_move_allowed(t_mymlx *mymlx);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *b, int c, size_t len);
+int	get_texture(t_scene *scene,t_mymlx *mymlx, mlx_texture_t *texture, int offset_x , int y);
+void get_text(t_scene *scene);
 #endif

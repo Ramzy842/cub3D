@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:24:19 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/04 00:06:49 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/06 22:53:45 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void drawLine(t_mymlx *mymlx, int x1, int y1, int x2, int y2, int color)
 
     while (1)
     {
-        mlx_put_pixel(mymlx->img, x1, y1, color);
+        mlx_put_pixel(mymlx->img, x1*0.5, y1*0.5, color);
         if (x1 == x2 && y1 == y2)
             break;
         int e2 = 2 * err;
@@ -278,6 +278,7 @@ void cloear(mlx_image_t *img, t_mymlx *mymlx)
     }
 }
 
+
 double get_short_distance(t_mymlx *mymlx)
 {
     if (mymlx->horzHitDistance < mymlx->vertHitDistance)
@@ -286,11 +287,8 @@ double get_short_distance(t_mymlx *mymlx)
         return (mymlx->vertHitDistance);
 }
 
-void	threeDrendring(t_mymlx *mymlx, int  i)
+void	threeDrendring(t_scene *scene,t_mymlx *mymlx, int  i)
 {
- 
-	// t_mydda	mydda;
-    // mymlx->text = init_tex(mymlx);
 	mymlx->s_3d.index = 0;
 	mymlx->s_3d.distance = get_short_distance(mymlx); //
 	mymlx->s_3d.perpDistance = mymlx->s_3d.distance * cos(mymlx->ray_angle - mymlx->rotation_angle);
@@ -309,31 +307,25 @@ void	threeDrendring(t_mymlx *mymlx, int  i)
 	
 	if (mymlx->s_3d.wallbottompixel > HEIGHT)
 		mymlx->s_3d.wallbottompixel = HEIGHT;
-
+    int offset_x = 0;
+    if (mymlx->horzHitDistance > mymlx->vertHitDistance)
+		offset_x = (int)mymlx->VertwallhitY  % 32;
+	else
+		offset_x = (int)mymlx->horiwallhitX  % 32;
+    
     for (int k= 0;k < HEIGHT; k++)
     {
         if (k < mymlx->s_3d.walltoppixel)
-            mlx_put_pixel(mymlx->img2, (int)i, (int)k, 0x00FFFF); //ceiling
+            mlx_put_pixel(mymlx->img2, (int)i, (int)k, 0x41eeda5); //ceiling
         else if (k > mymlx->s_3d.wallbottompixel)
             mlx_put_pixel(mymlx->img2, (int)i, (int)k, 0x000FFF); // floore
         else    
         {
-            if (mymlx->horzHitDistance > mymlx->vertHitDistance)
-                mlx_put_pixel(mymlx->img2, (int)i, (int)k, 0xf2b31ccc);  //verical
-            else
-                mlx_put_pixel(mymlx->img2, (int)i, (int)k, 0x8Fc02c); // horizontal
+            mlx_put_pixel(mymlx->img2, (int)i, (int)k,	get_texture(scene,mymlx, mymlx->so, offset_x , k));  //verical
+            
         }
     }
-
-    // mydda.ystart = mymlx->s_3d.wallbottompixel;
-    // mydda.endx = i;
-    // mydda.endy = mydda.ystart;
-    // drawLineDDA(mymlx, mydda.xstart, mydda.ystart, mydda.endx, mydda.endy, 0xFF777777);
-
-
-	// L_ard(mymlx, i);
 	mymlx->s_3d.index = mymlx->s_3d.wallbottompixel;
-	// ceiling(mymlx, i);
 }
 
 void cast_all_rays(t_scene *scene)
@@ -356,7 +348,7 @@ void cast_all_rays(t_scene *scene)
         else
             scene->mymlx->vertHitDistance = 90000000000;
         calculateDistance(scene->mymlx);
-        threeDrendring(scene->mymlx, colum_id);
+        threeDrendring(scene ,scene->mymlx, colum_id);
         colum_id++;
     }
 }
@@ -383,12 +375,12 @@ void rect(int tile_x, int tile_y, t_scene *scene, int value)
 
             if (value == 1)
             {
-                mlx_put_pixel(scene->mymlx->img, tile_x, current_y, 0x0099FFFF); // Red color
+                mlx_put_pixel(scene->mymlx->img, tile_x*0.5, current_y*0.5, 0x0099FFFF); // Red color
             }
             else
             {
 
-                mlx_put_pixel(scene->mymlx->img, tile_x, current_y, 0x00FF00FF); // Red color
+                mlx_put_pixel(scene->mymlx->img, tile_x*0.5, current_y*0.5, 0x00FF00FF); // Red color
             }
             current_y++;
         }
@@ -476,15 +468,15 @@ void draw_player_view(t_mymlx *mymlx)
     drawLine(mymlx, mymlx->x, mymlx->y, lineEndX, lineEndY, 0x0000FFFF);
 }
 
-
+ 
 
 void ft_hook(void *param)
 {
     t_scene *scene = (t_scene*)param;
 	// scene->mymlx->x = scene->x;
 	// scene->mymlx->y = scene->y;
-    scene->mymlx->dirY = scene->mymlx->y;
-    scene->mymlx->dirX = scene->mymlx->x;
+    // scene->mymlx->dirY = scene->mymlx->y;
+    // scene->mymlx->dirX = scene->mymlx->x;
     scene->mymlx->YisAllowed = scene->mymlx->y;
     scene->mymlx->XisAllowed = scene->mymlx->x;
     if (mlx_is_key_down(scene->mymlx->mlx, MLX_KEY_ESCAPE)) // done
@@ -525,10 +517,12 @@ void ft_hook(void *param)
         scene->mymlx->x = scene->mymlx->XisAllowed;
         scene->mymlx->y = scene->mymlx->YisAllowed;
     }   
+      
+
     print_grid(scene);
     cast_all_rays(scene);
     draw_player_view(scene->mymlx);
-    drawCircle(scene->mymlx, scene->mymlx->radius, scene->mymlx->circleColor);
+    // drawCircle(scene->mymlx, scene->mymlx->radius, scene->mymlx->circleColor);
 }
 
 
@@ -605,29 +599,17 @@ int	initiate_gfx(t_scene *scene)
 	printf("Launching the scene...\n");
 	if (scene->map)
 	{
-    // int fd;
-    scene->mymlx = (t_mymlx *)malloc(sizeof(t_mymlx));
+     scene->mymlx = (t_mymlx *)malloc(sizeof(t_mymlx));
     if (!scene->mymlx)
         return 1;
     ft_memset(scene->mymlx, 0, sizeof(t_mymlx));
 	get_scene_info_values(scene);
-	printf("no texture: %s\n", scene->no_texture);
-	printf("so texture: %s\n", scene->so_texture);
-	printf("we texture: %s\n", scene->we_texture);
-	printf("ea texture: %s\n", scene->ea_texture);
-	print_2d_arr(scene->ceiling_colors);
-	print_2d_arr(scene->floor_colors);
     scene->mymlx->rotation_angle = 0; // PLayer face angle up down right left  fix it later !!!
     scene->mymlx->fov_angle = 60 * (M_PI / 180);
-
-    scene->mymlx->radius = 4; // circle player radius
-   	scene->mymlx->circleColor = 0x00FF000;
-    scene->mymlx->movespeed = 4.0;//  4 pixel /fram
-    //(M_PI/180) == convert to radian
-    scene->mymlx->rotation_speed = scene->mymlx->movespeed * (M_PI / 180); // amounth by which the player rotation angle will change per frame
+    scene->mymlx->movespeed = 8.0;//  4 pixel /fram
+     scene->mymlx->rotation_speed = scene->mymlx->movespeed * (M_PI / 180); // amounth by which the player rotation angle will change per frame
     printf("player type == %c\n",scene->player_type);
-    //  scene->mymlx->fov_angle = 60 * (scene->mymlx->mypi/ 180);
-    printf("fovvv ==%f \n", scene->mymlx->fov_angle);
+     printf("fovvv ==%f \n", scene->mymlx->fov_angle);
     scene->mymlx->width = scene->map_cols * 32;
     scene->mymlx->hight = scene->map_rows * 32;
     scene->mymlx->num_rays = WIDTH  ; // update the value; //NUM_RAYS
@@ -641,18 +623,12 @@ int	initiate_gfx(t_scene *scene)
     // mlx_loop_hook(scene->mymlx->mlx, ft_hook, mymlx);
     // print_grid(mymlx);
     // printf("scene->mymlx->x  == %f || scene->mymlx->y %f\n",scene->mymlx->x , scene->mymlx->y);
+    get_text(scene);
     playertype( scene);
-		scene->mymlx->x = scene->x;
+	scene->mymlx->x = scene->x;
 	scene->mymlx->y = scene->y;
-	//     scene->mymlx->dirY = scene->mymlx->y;
-    // scene->mymlx->dirX = scene->mymlx->x;
-    // scene->mymlx->YisAllowed = scene->mymlx->y;
-    // scene->mymlx->XisAllowed = scene->mymlx->x;
     mlx_loop_hook(scene->mymlx->mlx, ft_hook, scene);
     mlx_loop(scene->mymlx->mlx);
-    // mlx_terminate(scene->mymlx->mlx);
-	// print_map(scene->map);
-	// free_2d_arr(scene->map);
 	}
 	if (scene->scene_info)
 		free_2d_arr(scene->scene_info);
@@ -684,13 +660,13 @@ int	scene_config_is_empty(char **scene_config)
 	free_2d_arr(scene_config);
 	return (1);
 }
-
 int	main(int argc, char **argv)
 {
 	t_scene		scene;
 	char		**scene_config;
 	int			is_valid_scene_info;
 	int			is_valid_map;
+
 
 	if (argc != 2 || argv[2])
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 22:29:09 by rchahban          #+#    #+#             */
-/*   Updated: 2024/01/29 18:38:39 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:04:17 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ void	print_2d_arr(char **colors)
 		x++;
 	}
 	printf("-------------------------------------\n");
+}
+
+void	getcolors(  t_scene *scene)
+{
+			scene->mymlx->cred =scene->ceiling_colors[0][0];
+			scene->mymlx->cblue=scene->ceiling_colors[0][1];
+			scene->mymlx->cgreen = scene->ceiling_colors[0][2];
+		
+	// printf("scene->cblue = %d\n",scene->cblue);
 }
 
 void	print_map(char **map)
