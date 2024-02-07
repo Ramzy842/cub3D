@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:24:19 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/06 22:53:45 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/07 04:50:32 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,45 +287,55 @@ double get_short_distance(t_mymlx *mymlx)
         return (mymlx->vertHitDistance);
 }
 
-void	threeDrendring(t_scene *scene,t_mymlx *mymlx, int  i)
+void threeDrendring(t_scene *scene, t_mymlx *mymlx, int i)
 {
-	mymlx->s_3d.index = 0;
-	mymlx->s_3d.distance = get_short_distance(mymlx); //
-	mymlx->s_3d.perpDistance = mymlx->s_3d.distance * cos(mymlx->ray_angle - mymlx->rotation_angle);
-
-	mymlx->s_3d.projectedWallHeight = (32/ mymlx->s_3d.perpDistance) * ((WIDTH / 2) / tan(mymlx->fov_angle / 2)); // chhab b3id player to calculate project wall height
-
-	mymlx->s_3d.wallStripHeight = (int)mymlx->s_3d.projectedWallHeight; // how tall the wall is 
-
-	mymlx->heightwall = mymlx->s_3d.wallStripHeight; 
-
-	mymlx->s_3d.walltoppixel = (HEIGHT / 2) - (mymlx->s_3d.wallStripHeight / 2);
-
-        mymlx->s_3d.walltoppixel  = mymlx->s_3d.walltoppixel< 0 ? 0 : mymlx->s_3d.walltoppixel;
-
-	mymlx->s_3d.wallbottompixel = (HEIGHT / 2) + (mymlx->s_3d.wallStripHeight / 2);
-	
-	if (mymlx->s_3d.wallbottompixel > HEIGHT)
-		mymlx->s_3d.wallbottompixel = HEIGHT;
+    mymlx->s_3d.index = 0;
+    mymlx->s_3d.distance = get_short_distance(mymlx);
+    mymlx->s_3d.perpDistance = mymlx->s_3d.distance * cos(mymlx->ray_angle - mymlx->rotation_angle);
+    mymlx->s_3d.projectedWallHeight = (32 / mymlx->s_3d.perpDistance) * ((WIDTH / 2) / tan(mymlx->fov_angle / 2));
+    mymlx->s_3d.wallStripHeight = (int)mymlx->s_3d.projectedWallHeight;
+    mymlx->heightwall = mymlx->s_3d.wallStripHeight;
+    mymlx->s_3d.walltoppixel = (HEIGHT / 2) - (mymlx->s_3d.wallStripHeight / 2);
+    mymlx->s_3d.walltoppixel = mymlx->s_3d.walltoppixel < 0 ? 0 : mymlx->s_3d.walltoppixel;
+    mymlx->s_3d.wallbottompixel = (HEIGHT / 2) + (mymlx->s_3d.wallStripHeight / 2);
+    if (mymlx->s_3d.wallbottompixel > HEIGHT)
+        mymlx->s_3d.wallbottompixel = HEIGHT;
     int offset_x = 0;
     if (mymlx->horzHitDistance > mymlx->vertHitDistance)
-		offset_x = (int)mymlx->VertwallhitY  % 32;
-	else
-		offset_x = (int)mymlx->horiwallhitX  % 32;
-    
-    for (int k= 0;k < HEIGHT; k++)
+        offset_x = (int)mymlx->VertwallhitY % 32;
+    else
+        offset_x = (int)mymlx->horiwallhitX % 32;
+
+    for (int k = 0; k < HEIGHT; k++)
     {
         if (k < mymlx->s_3d.walltoppixel)
-            mlx_put_pixel(mymlx->img2, (int)i, (int)k, 0x41eeda5); //ceiling
+            mlx_put_pixel(mymlx->img2, i, k, 0x41eeda5); //ceiling
         else if (k > mymlx->s_3d.wallbottompixel)
-            mlx_put_pixel(mymlx->img2, (int)i, (int)k, 0x000FFF); // floore
-        else    
+            mlx_put_pixel(mymlx->img2, i, k, 0x000FFF); // floore
+        else
         {
-            mlx_put_pixel(mymlx->img2, (int)i, (int)k,	get_texture(scene,mymlx, mymlx->so, offset_x , k));  //verical
+            int texture_color = 0;
+            if (mymlx->horzHitDistance > mymlx->vertHitDistance){
+                if (scene->mymlx->RayFaceRight) //right
+                    mlx_put_pixel(mymlx->img2, i, k,
+                 get_texture(scene, mymlx, mymlx->we, offset_x, k)); //vertical
+                else if(scene->mymlx->RayFaceLeft) //left
+                    mlx_put_pixel(mymlx->img2, i, k,
+                 get_texture(scene, mymlx, mymlx->ea, offset_x, k)); //vertical
+            }
+            else {
+                if(scene->mymlx->RayFaceUp) //no
+                mlx_put_pixel(mymlx->img2, i, k, 
+                get_texture(scene, mymlx, mymlx->no, offset_x, k)); //vertical
+                else if(scene->mymlx->RayFaceDown) //so
+                mlx_put_pixel(mymlx->img2, i, k, 
+                get_texture(scene, mymlx, mymlx->so, offset_x, k));
             
-        }
+            }
+        
     }
-	mymlx->s_3d.index = mymlx->s_3d.wallbottompixel;
+    mymlx->s_3d.index = mymlx->s_3d.wallbottompixel;
+}
 }
 
 void cast_all_rays(t_scene *scene)
