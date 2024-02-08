@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:24:19 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/07 04:50:32 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/08 03:47:14 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -604,6 +604,27 @@ void	get_scene_info_values(t_scene *scene)
 	}
 }
 
+void	handle_ceiling_colors(t_scene *scene)
+{
+	scene->mymlx->ceiling_red =  ft_atoi(scene->ceiling_colors[0]);
+	scene->mymlx->ceiling_green =  ft_atoi(scene->ceiling_colors[1]);
+	scene->mymlx->ceiling_blue =  ft_atoi(scene->ceiling_colors[2]);
+}
+
+
+void	handle_floor_colors(t_scene *scene)
+{
+	scene->mymlx->floor_red =  ft_atoi(scene->floor_colors[0]);
+	scene->mymlx->floor_green =  ft_atoi(scene->floor_colors[1]);
+	scene->mymlx->floor_blue =  ft_atoi(scene->floor_colors[2]);
+}
+
+void	process_colors(t_scene *scene)
+{
+	handle_ceiling_colors(scene);
+	handle_floor_colors(scene);
+}
+
 int	initiate_gfx(t_scene *scene)
 {
 	printf("Launching the scene...\n");
@@ -614,6 +635,7 @@ int	initiate_gfx(t_scene *scene)
         return 1;
     ft_memset(scene->mymlx, 0, sizeof(t_mymlx));
 	get_scene_info_values(scene);
+	process_colors(scene);
     scene->mymlx->rotation_angle = 0; // PLayer face angle up down right left  fix it later !!!
     scene->mymlx->fov_angle = 60 * (M_PI / 180);
     scene->mymlx->movespeed = 8.0;//  4 pixel /fram

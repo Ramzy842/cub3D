@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 14:03:20 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/06 20:41:05 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/08 03:39:33 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ typedef struct s_mymlx
 //   t_text *text;
   t_mydda mydda;
   t_ThreeD s_3d;
-  int ceelingRed;
-  int ceelingBlue;
-  int ceelingGreen;
-  int floorRed;
-  int floorBlue;
-  int floorGreen;
+  int ceiling_red;
+  int ceiling_blue;
+  int ceiling_green;
+  int floor_red;
+  int floor_blue;
+  int floor_green;
   int map_line_counter;
   void *mlx;
   void *img;

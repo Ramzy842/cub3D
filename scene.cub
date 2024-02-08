@@ -1,8 +1,8 @@
 
-SO text.txt
-NO text.txt
-WE text.txt
-EA text.txt
+SO ./testtt.png
+NO ./testtt.png
+WE ./testtt.png
+EA ./testtt.png
 
 F 255,2,11
 C 11,11,					166

@@ -2,7 +2,7 @@
 
 mlx_texture_t    *text_so(t_scene *scene)
 {
-    scene->mymlx->so = mlx_load_png("/Users/mbouderr/Desktop/9lawi/lava.png");
+    scene->mymlx->so = mlx_load_png("./lava.png");
     if (scene->mymlx->so == NULL){
             puts("No so texture\n");
         exit(0);
@@ -11,7 +11,7 @@ mlx_texture_t    *text_so(t_scene *scene)
 }
  mlx_texture_t*   text_no(t_scene *scene)
 {
-    scene->mymlx->no = mlx_load_png("/Users/mbouderr/Desktop/9lawi/dali3.png");
+    scene->mymlx->no = mlx_load_png("./dali3.png");
     if (scene->mymlx->no == NULL){
                     puts("No no texture\n");
 
@@ -21,7 +21,7 @@ mlx_texture_t    *text_so(t_scene *scene)
 }
   mlx_texture_t*    text_ea(t_scene *scene)
 {
-    scene->mymlx->ea = mlx_load_png("/Users/mbouderr/Desktop/9lawi/East.png");
+    scene->mymlx->ea = mlx_load_png("./East.png");
     if (scene->mymlx->ea == NULL){
                     puts("No  ea texture\n");
 
@@ -31,7 +31,7 @@ mlx_texture_t    *text_so(t_scene *scene)
 }
  mlx_texture_t*    text_we(t_scene *scene)
 {
-    scene->mymlx->we = mlx_load_png("/Users/mbouderr/Desktop/9lawi/rbi3.png");
+    scene->mymlx->we = mlx_load_png("./rbi3.png");
     if (scene->mymlx->we == NULL){
                     puts("No we texture\n");
         exit(0);
