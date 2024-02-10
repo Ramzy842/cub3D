@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 04:41:38 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/09 16:14:09 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:33:37 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,5 @@ void	calculate_distance(t_mymlx *mymlx)
 		mymlx->wallHitY = mymlx->VertwallhitY;
 		mymlx->wasHitVertical = true;
 	}
-	drawline(mymlx, mymlx->x, mymlx->y, mymlx->wallHitX, mymlx->wallHitY,
-		0xFF0000FF);
+	drawline(mymlx, mymlx->x, mymlx->y, mymlx->wallHitX, mymlx->wallHitY);
 }

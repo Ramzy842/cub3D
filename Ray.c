@@ -6,13 +6,13 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 09:52:42 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 10:27:43 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:34:52 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/cub3d.h"
 
-void	drawline(t_mymlx *mymlx, int x1, int y1, int x2, int y2, int color)
+void	drawline(t_mymlx *mymlx, int x1, int y1, int x2, int y2)
 {
 	int	dx;
 	int	dy;
@@ -28,7 +28,7 @@ void	drawline(t_mymlx *mymlx, int x1, int y1, int x2, int y2, int color)
 	err = dx - dy;
 	while (1)
 	{
-		mlx_put_pixel(mymlx->img, x1 * 0.4, y1 * 0.4, color);
+		mlx_put_pixel(mymlx->img, x1 * 0.4, y1 * 0.4, 0x455AED5);
 		if (x1 == x2 && y1 == y2)
 			break ;
 		e2 = 2 * err;
@@ -50,9 +50,9 @@ void	draw_player_view(t_mymlx *mymlx)
 	int	lineEndX;
 	int	lineEndY;
 
-	lineEndX = mymlx->x + cos(mymlx->rotation_angle) * 50;
-	lineEndY = mymlx->y + sin(mymlx->rotation_angle) * 50;
-	drawline(mymlx, mymlx->x, mymlx->y, lineEndX, lineEndY, 0x0000FFFF);
+	lineEndX = mymlx->x + cos(mymlx->rotation_angle) * 30;
+	lineEndY = mymlx->y + sin(mymlx->rotation_angle) * 30;
+	drawline(mymlx, mymlx->x, mymlx->y, lineEndX, lineEndY);
 }
 void	calcul_distance(t_scene *scene)
 {

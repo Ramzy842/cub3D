@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 14:03:20 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/10 10:20:29 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:32:59 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,7 @@ void cast_all_rays(t_scene *scene);
 double normalize_angle(double angle);
 int map_has_wall(t_scene *scene, double x, double y);
 void calculate_distance(t_mymlx *mymlx);
-void drawLine(t_mymlx *mymlx, int x1, int y1, int x2, int y2, int color);
+void drawLine(t_mymlx *mymlx, int x1, int y1, int x2, int y2);
 void cloear(mlx_image_t *img, t_mymlx *mymlx);
 double get_short_distance(t_mymlx *mymlx);
 void three_drendring(t_scene *scene, t_mymlx *mymlx, int i);
@@ -298,7 +298,7 @@ double distance_between_points(double x1, double y1, double x2, double y2);
 void three_drendring(t_scene *scene, t_mymlx *mymlx, int i);
 void draw_player_view(t_mymlx *mymlx);
 void cast_all_rays(t_scene *scene);
-void drawline(t_mymlx *mymlx, int x1, int y1, int x2, int y2, int color);
+void drawline(t_mymlx *mymlx, int x1, int y1, int x2, int y2);
 void	calcul_distance(t_scene *scene);
 int	get_texture(t_mymlx *mymlx, mlx_texture_t *texture, int offset_x , int y);
 void	getcolors(t_scene *scene);
