@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 14:03:20 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/10 19:32:59 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:48:41 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ typedef struct s_mymlx
   double dirY;
   double XisAllowed;
   double YisAllowed;
+  int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	e2;
+	int	err;
   int reader;
   double width;
   double hight;
@@ -145,6 +151,12 @@ typedef struct s_mymlx
   int fblue;
   int fred;
   int offset_x ;
+  int xx1;
+	int xx2;
+	int yy1;
+	int yy2;
+  int cy;
+
 } t_mymlx;
 
 // RAYCASTING
@@ -265,10 +277,8 @@ void print_map(char **map);
 void display_list(t_element *head);
 void ft_bzero(void *s, size_t n);
 void *ft_memset(void *b, int c, size_t len);
-void get_text(t_scene *scene);
 void init_var(t_scene *scene);
 void mlx_initiate(t_scene *scene);
-void get_text(t_scene *scene);
 void playertype(t_scene *scene);
 void ft_hook(void *param);
 void hook_awsd(t_scene *scene);
@@ -279,11 +289,12 @@ void cast_all_rays(t_scene *scene);
 double normalize_angle(double angle);
 int map_has_wall(t_scene *scene, double x, double y);
 void calculate_distance(t_mymlx *mymlx);
-void drawLine(t_mymlx *mymlx, int x1, int y1, int x2, int y2);
+void	drawline(t_mymlx *mymlx);
 void cloear(mlx_image_t *img, t_mymlx *mymlx);
 double get_short_distance(t_mymlx *mymlx);
 void three_drendring(t_scene *scene, t_mymlx *mymlx, int i);
 int get_rgba(int r, int g, int b, int a);
+void	get_text(t_scene *scene);
 void ishorizontal(t_scene *scene);
 void incr_hsteps(t_scene *scene);
 void init_horizontal(t_scene *scene);
@@ -298,9 +309,20 @@ double distance_between_points(double x1, double y1, double x2, double y2);
 void three_drendring(t_scene *scene, t_mymlx *mymlx, int i);
 void draw_player_view(t_mymlx *mymlx);
 void cast_all_rays(t_scene *scene);
-void drawline(t_mymlx *mymlx, int x1, int y1, int x2, int y2);
 void	calcul_distance(t_scene *scene);
-int	get_texture(t_mymlx *mymlx, mlx_texture_t *texture, int offset_x , int y);
+int	get_texture(t_mymlx *mymlx, mlx_texture_t *texture, int offset_x, int y);
 void	getcolors(t_scene *scene);
-void drawCircle(t_mymlx *mymlx);
+void	init_values(t_mymlx *mymlx);
+void dda1(t_mymlx *mymlx);
+void dda2(t_mymlx *mymlx);
+void drawcircle(t_mymlx *mymlx);
+void	free_texture(t_scene *scene);
+void	text_checker(mlx_texture_t *texture);
+mlx_texture_t	*text_so(t_scene *scene);
+mlx_texture_t	*text_no(t_scene *scene);
+mlx_texture_t	*text_ea(t_scene *scene);
+mlx_texture_t	*text_we(t_scene *scene);
+void	get_scene_info_values(t_scene *scene);
+void	mlx_initiate(t_scene *scene);
+void	init_var(t_scene *scene);
 #endif

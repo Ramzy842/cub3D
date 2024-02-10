@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 05:43:14 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/09 15:06:46 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:16:03 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	rendring_wall(t_mymlx *mymlx)
 	if (mymlx->s_3d.walltoppixel < 0)
 		mymlx->s_3d.walltoppixel = 0;
 	else
-		mymlx->s_3d.walltoppixel = mymlx->s_3d.walltoppixel+1;
+		mymlx->s_3d.walltoppixel = mymlx->s_3d.walltoppixel + 1;
 	mymlx->s_3d.wallbottompixel = (HEIGHT / 2) + (mymlx->s_3d.wallStripHeight
 			/ 2);
 	if (mymlx->s_3d.wallbottompixel > HEIGHT)
@@ -41,20 +41,20 @@ void	texture_wenw(t_scene *scene, t_mymlx *mymlx, int id, int i)
 	if (mymlx->horzHitDistance > mymlx->vertHitDistance)
 	{
 		if (scene->mymlx->RayFaceRight)
-			mlx_put_pixel(mymlx->img2, id, i, get_texture(mymlx,
-					mymlx->we, mymlx->offset_x, i));
+			mlx_put_pixel(mymlx->img2, id, i, get_texture(mymlx, mymlx->we,
+					mymlx->offset_x, i));
 		else if (scene->mymlx->RayFaceLeft)
-			mlx_put_pixel(mymlx->img2, id, i, get_texture(mymlx,
-					mymlx->ea, mymlx->offset_x, i));
+			mlx_put_pixel(mymlx->img2, id, i, get_texture(mymlx, mymlx->ea,
+					mymlx->offset_x, i));
 	}
 	else
 	{
 		if (scene->mymlx->RayFaceUp)
-			mlx_put_pixel(mymlx->img2, id, i, get_texture(mymlx,
-					mymlx->no, mymlx->offset_x, i));
+			mlx_put_pixel(mymlx->img2, id, i, get_texture(mymlx, mymlx->no,
+					mymlx->offset_x, i));
 		else if (scene->mymlx->RayFaceDown)
-			mlx_put_pixel(mymlx->img2, id, i, get_texture(mymlx,
-					mymlx->so, mymlx->offset_x, i));
+			mlx_put_pixel(mymlx->img2, id, i, get_texture(mymlx, mymlx->so,
+					mymlx->offset_x, i));
 	}
 }
 
@@ -66,9 +66,11 @@ void	printing_wall(t_scene *scene, t_mymlx *mymlx, int id)
 	while (i < HEIGHT)
 	{
 		if (i < mymlx->s_3d.walltoppixel)
-			mlx_put_pixel(mymlx->img2, id, i, get_rgba(scene->mymlx->cred,scene->mymlx->cgreen,scene->mymlx->cblue,255));
+			mlx_put_pixel(mymlx->img2, id, i, get_rgba(scene->mymlx->cred,
+					scene->mymlx->cgreen, scene->mymlx->cblue, 255));
 		else if (i > mymlx->s_3d.wallbottompixel)
-			mlx_put_pixel(mymlx->img2, id, i, get_rgba(scene->mymlx->fred,scene->mymlx->fgreen,scene->mymlx->fblue,255));
+			mlx_put_pixel(mymlx->img2, id, i, get_rgba(scene->mymlx->fred,
+					scene->mymlx->fgreen, scene->mymlx->fblue, 255));
 		else
 		{
 			texture_wenw(scene, mymlx, id, i);

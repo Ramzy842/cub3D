@@ -6,90 +6,44 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 09:52:38 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 16:02:20 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:41:10 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/cub3d.h"
 
-void text_checker(mlx_texture_t *texture)
+mlx_texture_t	*text_so(t_scene *scene)
 {
-    if (!texture || texture->height != 32 || texture->width != 32)
-    {
-        printf("texture size is incorrect\n");
-        exit(1);
-    }
+	scene->mymlx->so = mlx_load_png(scene->so_texture);
+	printf("this is SO texture %s\n", scene->so_texture);
+	if (scene->mymlx->so == NULL)
+	{
+		puts("No so texture\n");
+		free(scene->mymlx);
+		exit(0);
+	}
+	text_checker(scene->mymlx->so);
+	return (scene->mymlx->so);
 }
 
-mlx_texture_t *text_so(t_scene *scene)
+int	get_texture(t_mymlx *mymlx, mlx_texture_t *texture, int offset_x, int y)
 {
-    scene->mymlx->so = mlx_load_png(scene->so_texture);
-    printf("this is SO texture %s\n", scene->so_texture);
-    if (scene->mymlx->so == NULL)
-    {
-        puts("No so texture\n");
-        free(scene->mymlx);
-        exit(0);
-    }
-    text_checker(scene->mymlx->so);
-    return scene->mymlx->so;
-}
-mlx_texture_t *text_no(t_scene *scene)
-{
-    scene->mymlx->no = mlx_load_png(scene->no_texture);
-    if (scene->mymlx->no == NULL)
-    {
-        puts("No no texture\n");
-        free(scene->mymlx);
-        exit(0);
-    }
-    text_checker(scene->mymlx->no);
-    return scene->mymlx->no;
-}
-mlx_texture_t *text_ea(t_scene *scene)
-{
-    scene->mymlx->ea = mlx_load_png(scene->ea_texture);
-    if (scene->mymlx->ea == NULL)
-    {
-        puts("No  ea texture\n");
-        free(scene->mymlx);
-        exit(0);
-    }
-    text_checker(scene->mymlx->ea);
+	int	offset_y;
+	int	index;
 
-    return scene->mymlx->ea;
-}
-mlx_texture_t *text_we(t_scene *scene)
-{
-    scene->mymlx->we = mlx_load_png(scene->we_texture);
-    if (scene->mymlx->we == NULL)
-    {
-        free(scene->mymlx);
-        exit(0);
-    }
-    text_checker(scene->mymlx->we);
-    return scene->mymlx->we;
+	offset_y = (y - 1 - (HEIGHT / 2) + (mymlx->s_3d.wallStripHeight / 2))
+		* ((double)32 / mymlx->s_3d.wallStripHeight);
+	index = (offset_y * 32 + offset_x) * 4;
+	return (get_rgba(texture->pixels[index], texture->pixels[index + 1],
+			texture->pixels[index + 2], texture->pixels[index + 3]));
 }
 
-void get_text(t_scene *scene)
+void	free_texture(t_scene *scene)
 {
-    scene->mymlx->ea = text_ea(scene);
-    scene->mymlx->no = text_no(scene);
-    scene->mymlx->so = text_so(scene);
-    scene->mymlx->we = text_we(scene);
-}
-
-int get_rgba(int r, int g, int b, int a)
-{
-    return (r << 24 | g << 16 | b << 8 | a);
-}
-
-int get_texture(t_mymlx *mymlx, mlx_texture_t *texture, int offset_x, int y)
-{
-    int offset_y;
-    int index;
-
-    offset_y = (y - 1 - (HEIGHT / 2) + (mymlx->s_3d.wallStripHeight / 2)) * ((double)32 / mymlx->s_3d.wallStripHeight);
-    index = (offset_y * 32 + offset_x) * 4;
-    return (get_rgba(texture->pixels[index], texture->pixels[index + 1], texture->pixels[index + 2], texture->pixels[index + 3]));
+	mlx_delete_texture(scene->mymlx->no);
+	mlx_delete_texture(scene->mymlx->so);
+	mlx_delete_texture(scene->mymlx->we);
+	mlx_delete_texture(scene->mymlx->ea);
+	free(scene->mymlx->mlx);
+	exit(1);
 }

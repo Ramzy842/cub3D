@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 11:04:38 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 10:09:42 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:16:18 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,74 +48,37 @@ int	map_has_wall(t_scene *scene, double x, double y)
 	return (mapcontent == '1');
 }
 
-void	rect(int tile_x, int tile_y, t_scene *scene, int value)
+void	calcul_distance(t_scene *scene)
 {
-	int	end_x;
-	int	end_y;
-	int	current_y;
-
-	end_x = tile_x + BLOCK;
-	end_y = tile_y + BLOCK;
-	while (tile_x < end_x)
-	{
-		current_y = tile_y;
-		while (current_y < end_y)
-		{
-			if (value == 1)
-				mlx_put_pixel(scene->mymlx->img, tile_x * 0.4, current_y * 0.4,
-					0x0099FFFF);
-			else
-				mlx_put_pixel(scene->mymlx->img, tile_x * 0.4, current_y * 0.4,
-					0x00FF00FF);
-			current_y++;
-		}
-		tile_x++;
-	}
+	scene->mymlx->ray_angle += scene->mymlx->fov_angle / scene->mymlx->num_rays;
+	if (scene->mymlx->foundHorizWall)
+		scene->mymlx->horzHitDistance = distance_between_points(scene->mymlx->x,
+				scene->mymlx->y, scene->mymlx->horiwallhitX,
+				scene->mymlx->horiwallhitY);
+	else
+		scene->mymlx->horzHitDistance = 90000000000;
+	if (scene->mymlx->foundVertWall)
+		scene->mymlx->vertHitDistance = distance_between_points(scene->mymlx->x,
+				scene->mymlx->y, scene->mymlx->VertwallhitX,
+				scene->mymlx->VertwallhitY);
+	else
+		scene->mymlx->vertHitDistance = 90000000000;
 }
 
-void	print_grid(t_scene *scene)
+void	cast_all_rays(t_scene *scene)
 {
-	double	tile_x;
-	double	tile_y;
-	int		j;
-	int		i;
+	int	colum_id;
 
-	cloear(scene->mymlx->img, scene->mymlx);
-	i = 0;
-	while (i < scene->map_rows)
+	colum_id = 0;
+	scene->mymlx->ray_angle = scene->mymlx->rotation_angle
+		- (scene->mymlx->fov_angle / 2);
+	while (colum_id < scene->mymlx->num_rays)
 	{
-		j = 0;
-		while (j < scene->map_cols)
-		{
-			tile_x = j * BLOCK;
-			tile_y = i * BLOCK;
-			if (scene->map[i][j] == '1' || scene->map[i][j] == 'V')
-				rect(tile_x, tile_y, scene, 1);
-			if (scene->map[i][j] == '0' || scene->map[i][j] == 'N'
-				|| scene->map[i][j] == 'S' || scene->map[i][j] == 'W'
-				|| scene->map[i][j] == 'E')
-				rect(tile_x, tile_y, scene, 0);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	cloear(mlx_image_t *img, t_mymlx *mymlx)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while (j < mymlx->num_col * BLOCK)
-	{
-		i = 0;
-		while (i < mymlx->num_rows * BLOCK)
-		{
-			mlx_put_pixel(img, j, i, 0x000000FF);
-			i++;
-		}
-		j++;
+		ishorizontal(scene);
+		isvertical(scene);
+		calcul_distance(scene);
+		calculate_distance(scene->mymlx);
+		three_drendring(scene, scene->mymlx, colum_id);
+		colum_id++;
 	}
 }

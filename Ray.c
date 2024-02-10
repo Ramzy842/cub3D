@@ -6,85 +6,55 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 09:52:42 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 19:34:52 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:15:51 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/cub3d.h"
 
-void	drawline(t_mymlx *mymlx, int x1, int y1, int x2, int y2)
+void	init_values(t_mymlx *mymlx)
 {
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
+	mymlx->xx1 = mymlx->x;
+	mymlx->yy1 = mymlx->y;
+	mymlx->xx2 = mymlx->wallHitX;
+	mymlx->yy2 = mymlx->wallHitY;
+	mymlx->dx = (int)abs(mymlx->xx2 - mymlx->xx1);
+	mymlx->dy = (int)abs(mymlx->yy2 - mymlx->yy1);
+}
 
-	dx = (int)abs(x2 - x1);
-	dy = (int)abs(y2 - y1);
-	sx = (x1 < x2) ? 1 : -1;
-	sy = (y1 < y2) ? 1 : -1;
-	err = dx - dy;
+void	dda1(t_mymlx *mymlx)
+{
+	mymlx->err -= mymlx->dy;
+	mymlx->xx1 += mymlx->sx;
+}
+
+void	dda2(t_mymlx *mymlx)
+{
+	mymlx->err += mymlx->dx;
+	mymlx->yy1 += mymlx->sy;
+}
+
+void	drawline(t_mymlx *mymlx)
+{
+	init_values(mymlx);
+	if (mymlx->xx1 < mymlx->xx2)
+		mymlx->sx = 1;
+	else
+		mymlx->sx = -1;
+	if (mymlx->yy1 < mymlx->yy2)
+		mymlx->sy = 1;
+	else
+		mymlx->sy = -1;
+	mymlx->err = mymlx->dx - mymlx->dy;
 	while (1)
 	{
-		mlx_put_pixel(mymlx->img, x1 * 0.4, y1 * 0.4, 0x455AED5);
-		if (x1 == x2 && y1 == y2)
+		mlx_put_pixel(mymlx->img, mymlx->xx1 * 0.4, mymlx->yy1 * 0.4, 0xeeeee);
+		if (mymlx->xx1 == mymlx->xx2 && mymlx->yy1 == mymlx->yy2)
 			break ;
-		e2 = 2 * err;
-		if (e2 > -dy)
-		{
-			err -= dy;
-			x1 += sx;
-		}
-		if (e2 < dx)
-		{
-			err += dx;
-			y1 += sy;
-		}
-	}
-}
-
-void	draw_player_view(t_mymlx *mymlx)
-{
-	int	lineEndX;
-	int	lineEndY;
-
-	lineEndX = mymlx->x + cos(mymlx->rotation_angle) * 30;
-	lineEndY = mymlx->y + sin(mymlx->rotation_angle) * 30;
-	drawline(mymlx, mymlx->x, mymlx->y, lineEndX, lineEndY);
-}
-void	calcul_distance(t_scene *scene)
-{
-	scene->mymlx->ray_angle += scene->mymlx->fov_angle / scene->mymlx->num_rays;
-	if (scene->mymlx->foundHorizWall)
-		scene->mymlx->horzHitDistance = distance_between_points(scene->mymlx->x,
-				scene->mymlx->y, scene->mymlx->horiwallhitX,
-				scene->mymlx->horiwallhitY);
-	else
-		scene->mymlx->horzHitDistance = 90000000000;
-	if (scene->mymlx->foundVertWall)
-		scene->mymlx->vertHitDistance = distance_between_points(scene->mymlx->x,
-				scene->mymlx->y, scene->mymlx->VertwallhitX,
-				scene->mymlx->VertwallhitY);
-	else
-		scene->mymlx->vertHitDistance = 90000000000;
-}
-
-void	cast_all_rays(t_scene *scene)
-{
-	int	colum_id;
-
-	colum_id = 0;
-	scene->mymlx->ray_angle = scene->mymlx->rotation_angle
-		- (scene->mymlx->fov_angle / 2);
-	while (colum_id < scene->mymlx->num_rays)
-	{
-		ishorizontal(scene);
-		isvertical(scene);
-		calcul_distance(scene);
-		calculate_distance(scene->mymlx);
-		three_drendring(scene, scene->mymlx, colum_id);
-		colum_id++;
+		mymlx->e2 = 2 * mymlx->err;
+		if (mymlx->e2 > -mymlx->dy)
+			dda1(mymlx);
+		if (mymlx->e2 < mymlx->dx)
+			dda2(mymlx);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 22:29:09 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/09 12:30:52 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:53:06 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ void	print_2d_arr(char **colors)
 	}
 	printf("-------------------------------------\n");
 }
-
-
-
-
 
 void	display_list(t_element *head)
 {
