@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 20:21:37 by rchahban          #+#    #+#             */
-/*   Updated: 2024/01/15 11:03:07 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:40:46 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	convert_to_num(const char *s, int result, int x)
 	return (result);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi( char *str)
 {
 	int	x;
 	int	result;

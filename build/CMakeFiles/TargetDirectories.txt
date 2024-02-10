@@ -1,0 +1,7 @@
+/Users/mbouderr/Desktop/9lawi/build/CMakeFiles/mlx42.dir
+/Users/mbouderr/Desktop/9lawi/build/CMakeFiles/edit_cache.dir
+/Users/mbouderr/Desktop/9lawi/build/CMakeFiles/rebuild_cache.dir
+/Users/mbouderr/Desktop/9lawi/build/CMakeFiles/list_install_components.dir
+/Users/mbouderr/Desktop/9lawi/build/CMakeFiles/install.dir
+/Users/mbouderr/Desktop/9lawi/build/CMakeFiles/install/local.dir
+/Users/mbouderr/Desktop/9lawi/build/CMakeFiles/install/strip.dir

@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 22:29:09 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/06 20:04:17 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:30:52 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,39 +37,9 @@ void	print_2d_arr(char **colors)
 	printf("-------------------------------------\n");
 }
 
-void	getcolors(  t_scene *scene)
-{
-			scene->mymlx->cred =scene->ceiling_colors[0][0];
-			scene->mymlx->cblue=scene->ceiling_colors[0][1];
-			scene->mymlx->cgreen = scene->ceiling_colors[0][2];
-		
-	// printf("scene->cblue = %d\n",scene->cblue);
-}
 
-void	print_map(char **map)
-{
-	int	x;
-	int	y;
 
-	if (!map)
-	{
-		printf("no map present in file\n");
-		return ;
-	}
-	x = 0;
-	printf("------------------- MAP --------------------\n");
-	while (map[x])
-	{
-		y = 0;
-		while (map[x][y])
-		{
-			print_char(map[x][y]);
-			y++;
-		}
-		printf("\n");
-		x++;
-	}
-}
+
 
 void	display_list(t_element *head)
 {

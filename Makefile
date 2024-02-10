@@ -6,7 +6,7 @@
 #    By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 11:22:05 by rchahban          #+#    #+#              #
-#    Updated: 2024/02/07 01:37:01 by mbouderr         ###   ########.fr        #
+#    Updated: 2024/02/09 12:47:18 by mbouderr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC = cc
 
 # Flags to pass to the compiler
-CFLAGS = #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 
 # Includes (.h)
 INCLUDES = -I./includes
@@ -22,6 +22,14 @@ INCLUDES = -I./includes
 # Source files for the cub3D executable
 SRC = cub3D.c \
 ./texture.c\
+./ft_keyhook.c\
+./ft_tools.c\
+./launch3d.c\
+./Ray.c\
+./map_and_player.c\
+./utils_fun.c\
+	./Raycasting_htools.c\
+	./Raycasting_vtools.c\
 	./src/utils/get_next_line/get_next_line_utils.c \
 	./src/utils/get_next_line/get_next_line.c \
 	./src/parsing/extension_checker.c ./src/utils/helpers/ft_2d_len.c \
