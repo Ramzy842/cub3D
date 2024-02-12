@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_keyhook.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 04:37:46 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 05:30:09 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 07:05:56 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	hook_awsd(t_scene *scene)
 		mlx_close_window(scene->mymlx->mlx);
 		free_texture(scene);
 	}
-	if (mlx_is_key_down(scene->mymlx->mlx, MLX_KEY_UP))
+	if (mlx_is_key_down(scene->mymlx->mlx, MLX_KEY_W))
 		checkdir(scene->mymlx, scene->mymlx->rotation_angle);
 	if (mlx_is_key_down(scene->mymlx->mlx, MLX_KEY_A))
 		checkdir(scene->mymlx, scene->mymlx->rotation_angle + rad(270));
 	if (mlx_is_key_down(scene->mymlx->mlx, MLX_KEY_D))
 		checkdir(scene->mymlx, scene->mymlx->rotation_angle + rad(90));
-	if (mlx_is_key_down(scene->mymlx->mlx, MLX_KEY_DOWN))
+	if (mlx_is_key_down(scene->mymlx->mlx, MLX_KEY_S))
 		checkdir(scene->mymlx, scene->mymlx->rotation_angle + rad(180));
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch3d.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 05:43:14 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 05:30:41 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 06:07:25 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	texture_wenw(t_scene *scene, t_mymlx *mymlx, int id, int i)
 	if (mymlx->horzHitDistance > mymlx->vertHitDistance)
 	{
 		if (scene->mymlx->RayFaceRight)
-			mlx_put_pixel(mymlx->img2, id, i, get_texture(mymlx, mymlx->we,
+			mlx_put_pixel(mymlx->img2, id, i, get_texture(mymlx, mymlx->ea,
 					mymlx->offset_x, i));
 		else if (scene->mymlx->RayFaceLeft)
-			mlx_put_pixel(mymlx->img2, id, i, get_texture(mymlx, mymlx->ea,
+			mlx_put_pixel(mymlx->img2, id, i, get_texture(mymlx, mymlx->we,
 					mymlx->offset_x, i));
 	}
 	else

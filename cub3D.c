@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:24:19 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/10 23:52:52 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 06:17:19 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,12 @@ int	main(int argc, char **argv)
 	if (!valid_extension(argv[1]))
 		return (1);
 	scene_config = read_scene(argv[1]);
-	if (scene_config_is_empty(scene_config))
-		return (1);
-	if (!process_scene_config(&scene, scene_config, &(scene.info_list)))
+	if (scene_config_is_empty(scene_config)
+		|| !process_scene_config(&scene, scene_config, &(scene.info_list)))
 		return (1);
 	is_valid_scene_info = valid_scene_info(scene.scene_info, scene.info_list);
+	if (!is_valid_scene_info)
+		return (1);
 	is_valid_map = valid_map(scene.temp_map, &scene);
 	if (is_valid_scene_info && is_valid_map)
 		initiate_gfx(&scene);

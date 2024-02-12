@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+         #
+#    By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 11:22:05 by rchahban          #+#    #+#              #
-#    Updated: 2024/02/12 05:14:09 by mbouderr         ###   ########.fr        #
+#    Updated: 2024/02/12 07:13:19 by rchahban         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC = cc
 
 # Flags to pass to the compiler
-CFLAGS =  # -g -fsanitize=address
+CFLAGS =  #-g -fsanitize=address
 
 # Includes (.h)
 INCLUDES = -I./includes

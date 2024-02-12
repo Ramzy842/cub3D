@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_and_player.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 11:04:38 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 05:32:24 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 06:02:15 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	map_has_wall(t_scene *scene, double x, double y)
 	int		mapgridindexy;
 	char	mapcontent;
 
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return (0);
 	mapgridindex = (int)floor(x / BLOCK);
 	mapgridindexy = (int)floor(y / BLOCK);
 	if (mapgridindex >= scene->map_cols)

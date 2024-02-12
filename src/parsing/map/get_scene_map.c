@@ -6,7 +6,7 @@
 /*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 12:41:42 by rchahban          #+#    #+#             */
-/*   Updated: 2024/01/29 22:53:49 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/12 06:17:02 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	handle_empty_str(char *str, char **map)
 	{
 		free(str);
 		str = NULL;
-		free_2d_arr(map);
 		return (0);
 	}
 	return (1);
@@ -70,7 +69,11 @@ char	**get_scene_map(char **scene, int map_lines, int *map_start_pos)
 		if (!ft_strlen(str))
 		{
 			if (is_map_end(scene, *map_start_pos + 1))
+			{
+				free(str);
+				map[count] = NULL;
 				return (map);
+			}
 			else if (!handle_empty_str(str, map))
 				return (NULL);
 		}
@@ -78,6 +81,7 @@ char	**get_scene_map(char **scene, int map_lines, int *map_start_pos)
 			assign_value_to_line(scene[*map_start_pos], str, map, &count);
 		(*map_start_pos)++;
 	}
+	map[count] = NULL;
 	if (scene)
 		free_2d_arr(scene);
 	return (map);
