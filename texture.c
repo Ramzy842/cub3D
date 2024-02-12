@@ -6,7 +6,7 @@
 /*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 09:52:38 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 07:21:08 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/12 08:28:10 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	get_texture(t_mymlx *mymlx, mlx_texture_t *texture, int offset_x, int y)
 	int	offset_y;
 	int	index;
 
-	if (!texture || texture->height != 32 || texture->width != 32){
-        printf("\x1b[31mError\nInvalid texture size!\x1b[0m\n");
-		while(1);
-       	exit (1);
-    }
+	if (!texture || texture->height != 32 || texture->width != 32)
+	{
+		printf("\x1b[31mError\nInvalid texture size!\x1b[0m\n");
+		exit (1);
+	}
 	offset_y = (y - 1 - (HEIGHT / 2) + (mymlx->s_3d.wallstripheight / 2))
 		* ((double)32 / mymlx->s_3d.wallstripheight);
 	index = (offset_y * 32 + offset_x) * 4;

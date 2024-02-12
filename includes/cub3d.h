@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 14:03:20 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/12 04:03:51 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 08:36:59 by rchahban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ double				horiwallhitX;
 	mlx_texture_t		*we;
 	mlx_texture_t		*no;
 	int					cred;
-  // wzebi dyalmn
 	int					cgreen;
 	int					cblue;
 	int					fgreen;
@@ -191,6 +190,13 @@ typedef struct scene
 	char				**floor_colors;
 }						t_scene;
 
+void					checkhori(t_scene *scene);
+void					checkvert(t_scene *scene);
+void					free_tex(t_scene *scene);
+int						all_tex_present(t_scene *scene);
+mlx_texture_t			*text_no(t_scene *scene);
+mlx_texture_t			*text_ea(t_scene *scene);
+mlx_texture_t			*text_we(t_scene *scene);
 int						valid_extension(char *path);
 char					**read_scene(char *map_path);
 int						ft_2d_len(char **scene);

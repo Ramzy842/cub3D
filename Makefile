@@ -6,7 +6,7 @@
 #    By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 11:22:05 by rchahban          #+#    #+#              #
-#    Updated: 2024/02/12 07:13:19 by rchahban         ###   ########.fr        #
+#    Updated: 2024/02/12 08:31:07 by rchahban         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRC = cub3D.c \
 	./src/parsing/scene_info/handle_color_ids_utils.c ./src/parsing/map/rebuild_map.c \
 	./src/parsing/map/get_scene_map.c ./src/parsing/map/get_map_count.c ./src/parsing/scene_info/get_scene_info.c \
 	./src/parsing/scene_info/get_scene_info_count.c ./src/utils/helpers/ft_bzero.c ./src/utils/helpers/ft_memset.c \
+	./tex_utils.c
 # Object files for the cub3D executable, generated from the source files
 OBJ = $(SRC:.c=.o)
 
