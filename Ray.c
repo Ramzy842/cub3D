@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 09:52:42 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 22:15:51 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 00:08:02 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	drawline(t_mymlx *mymlx)
 	mymlx->err = mymlx->dx - mymlx->dy;
 	while (1)
 	{
-		mlx_put_pixel(mymlx->img, mymlx->xx1 * 0.4, mymlx->yy1 * 0.4, 0xeeeee);
+		mlx_put_pixel(mymlx->img, mymlx->xx1 * 0.4, mymlx->yy1 * 0.4,
+			0xff0065FF);
 		if (mymlx->xx1 == mymlx->xx2 && mymlx->yy1 == mymlx->yy2)
 			break ;
 		mymlx->e2 = 2 * mymlx->err;

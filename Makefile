@@ -6,7 +6,7 @@
 #    By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 11:22:05 by rchahban          #+#    #+#              #
-#    Updated: 2024/02/10 23:49:07 by mbouderr         ###   ########.fr        #
+#    Updated: 2024/02/12 02:15:05 by mbouderr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC = cc
 
 # Flags to pass to the compiler
-CFLAGS =  #  -g -fsanitize=address
+CFLAGS =  -g -fsanitize=address
 
 # Includes (.h)
 INCLUDES = -I./includes

@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 05:43:14 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 23:16:03 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 01:33:03 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void	init_rendring(t_mymlx *mymlx)
 {
-	mymlx->s_3d.distance = get_short_distance(mymlx);
-	mymlx->s_3d.newDistance = mymlx->s_3d.distance * cos(mymlx->ray_angle
+	// mymlx->s_3d.distance = get_short_distance(mymlx);
+	mymlx->s_3d.new_distance = mymlx->distance * cos(mymlx->ray_angle
 			- mymlx->rotation_angle);
-	mymlx->s_3d.projectedWallHeight = (BLOCK / mymlx->s_3d.newDistance)
+	// printf("mymlx->s_3d.new_distance %f\n",mymlx->s_3d.new_distance);
+	printf("mymlx->h||vdistance %f\n",mymlx->distance);
+	mymlx->s_3d.projected_wall_height = (BLOCK / mymlx->s_3d.new_distance)
 		* ((WIDTH / 2) / tan(mymlx->fov_angle / 2));
-	mymlx->s_3d.wallStripHeight = (int)mymlx->s_3d.projectedWallHeight;
-	mymlx->heightwall = mymlx->s_3d.wallStripHeight;
-	mymlx->s_3d.walltoppixel = (HEIGHT / 2) - (mymlx->s_3d.wallStripHeight / 2);
+	mymlx->s_3d.wallstripheight = (int)mymlx->s_3d.projected_wall_height;
+	mymlx->s_3d.walltoppixel = (HEIGHT / 2) - (mymlx->s_3d.wallstripheight / 2);
 }
 
 void	rendring_wall(t_mymlx *mymlx)
@@ -30,7 +31,7 @@ void	rendring_wall(t_mymlx *mymlx)
 		mymlx->s_3d.walltoppixel = 0;
 	else
 		mymlx->s_3d.walltoppixel = mymlx->s_3d.walltoppixel + 1;
-	mymlx->s_3d.wallbottompixel = (HEIGHT / 2) + (mymlx->s_3d.wallStripHeight
+	mymlx->s_3d.wallbottompixel = (HEIGHT / 2) + (mymlx->s_3d.wallstripheight
 			/ 2);
 	if (mymlx->s_3d.wallbottompixel > HEIGHT)
 		mymlx->s_3d.wallbottompixel = HEIGHT;

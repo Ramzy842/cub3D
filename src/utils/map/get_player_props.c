@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_player_props.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 23:50:55 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/03 00:06:46 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/11 23:29:11 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ void	get_player_props(t_scene *scene)
 		{
 			if (is_player(scene->map[x][y]))
 			{
-				// scene->mymlx->x = y * 32 + 32 / 2;
-				// scene->mymlx->y = x * 32 + 32 / 2;
-				// printf("scene->mymlx->x %f\n", scene->mymlx->x);
-				// printf("scene->mymlx->y %f\n", scene->mymlx->y);
 				scene->player_x = x;
 				scene->player_y = y;
 				scene->x = y * 32 + 32 / 2;

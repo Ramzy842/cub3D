@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 04:37:46 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 23:42:43 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 01:14:41 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	checkdir(t_mymlx *mymlx, double rotation_angle)
 
 	tempy = mymlx->y + sin(rotation_angle) * mymlx->movespeed;
 	tempx = mymlx->x + cos(rotation_angle) * mymlx->movespeed;
-	mymlx->YisAllowed = tempy;
-	mymlx->XisAllowed = tempx;
+	mymlx->yisallowed = tempy;
+	mymlx->xisallowed = tempx;
 }
 
 void	hook_awsd(t_scene *scene)
@@ -42,11 +42,11 @@ void	hook_awsd(t_scene *scene)
 
 int	is_move_allowed(t_scene *scene)
 {
-	return (scene->map[(int)scene->mymlx->YisAllowed
-			/ BLOCK][(int)scene->mymlx->XisAllowed / BLOCK] != '1'
+	return (scene->map[(int)scene->mymlx->yisallowed
+			/ BLOCK][(int)scene->mymlx->xisallowed / BLOCK] != '1'
 			&& scene->map[(int)scene->mymlx->y
-			/ BLOCK][(int)scene->mymlx->XisAllowed / BLOCK] != '1'
-			&& scene->map[(int)scene->mymlx->YisAllowed
+			/ BLOCK][(int)scene->mymlx->xisallowed / BLOCK] != '1'
+			&& scene->map[(int)scene->mymlx->yisallowed
 			/ BLOCK][(int)scene->mymlx->x / BLOCK] != '1');
 }
 
@@ -66,8 +66,8 @@ void	rightandleft(t_scene *scene)
 	}
 	if (is_move_allowed(scene))
 	{
-		scene->mymlx->x = scene->mymlx->XisAllowed;
-		scene->mymlx->y = scene->mymlx->YisAllowed;
+		scene->mymlx->x = scene->mymlx->xisallowed;
+		scene->mymlx->y = scene->mymlx->yisallowed;
 	}
 }
 
@@ -76,8 +76,8 @@ void	ft_hook(void *param)
 	t_scene	*scene;
 
 	scene = (t_scene *)param;
-	scene->mymlx->YisAllowed = scene->mymlx->y;
-	scene->mymlx->XisAllowed = scene->mymlx->x;
+	scene->mymlx->yisallowed = scene->mymlx->y;
+	scene->mymlx->xisallowed = scene->mymlx->x;
 	hook_awsd(scene);
 	rightandleft(scene);
 	print_grid(scene);

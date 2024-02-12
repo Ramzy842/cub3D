@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 11:04:38 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 22:16:18 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 02:09:41 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,30 @@ int	map_has_wall(t_scene *scene, double x, double y)
 	mapcontent = scene->map[mapgridindexy][mapgridindex];
 	return (mapcontent == '1');
 }
-
-void	calcul_distance(t_scene *scene)
-{
-	scene->mymlx->ray_angle += scene->mymlx->fov_angle / scene->mymlx->num_rays;
-	if (scene->mymlx->foundHorizWall)
+void checkhori(t_scene *scene)
+	{
+			if (scene->mymlx->foundHorizWall)
 		scene->mymlx->horzHitDistance = distance_between_points(scene->mymlx->x,
 				scene->mymlx->y, scene->mymlx->horiwallhitX,
 				scene->mymlx->horiwallhitY);
-	else
-		scene->mymlx->horzHitDistance = 90000000000;
+	 else
+	 	scene->mymlx->horzHitDistance = SIZE_MAX ;
+	}
+void checkvert(t_scene *scene)
+	{
 	if (scene->mymlx->foundVertWall)
 		scene->mymlx->vertHitDistance = distance_between_points(scene->mymlx->x,
 				scene->mymlx->y, scene->mymlx->VertwallhitX,
 				scene->mymlx->VertwallhitY);
 	else
-		scene->mymlx->vertHitDistance = 90000000000;
+		scene->mymlx->vertHitDistance = SIZE_MAX;
+		
+	}
+void	calcul_distance(t_scene *scene)
+{
+	scene->mymlx->ray_angle += scene->mymlx->fov_angle / scene->mymlx->num_rays;
+	checkhori( scene);
+checkvert(scene);
 }
 
 void	cast_all_rays(t_scene *scene)

@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 21:50:59 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 22:07:35 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 02:14:32 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	drawcircle(t_mymlx *mymlx)
 	radius = 10;
 	mymlx->cy = 0;
 	radiuserr = 1 - radius;
+	mymlx->circleColor = 0x0099FFFF;
 	while (radius >= mymlx->cy)
 	{
 		circledrawing(mymlx);
@@ -70,12 +71,15 @@ void	rect(int tile_x, int tile_y, t_scene *scene, int value)
 		current_y = tile_y;
 		while (current_y < end_y)
 		{
-			if (value == 1)
+			if (value == 2)
+				mlx_put_pixel(scene->mymlx->img, tile_x * 0.4, current_y * 0.4,
+					0x1E453EFF);
+			else if (value == 1)
 				mlx_put_pixel(scene->mymlx->img, tile_x * 0.4, current_y * 0.4,
 					0x0099FFFF);
 			else
 				mlx_put_pixel(scene->mymlx->img, tile_x * 0.4, current_y * 0.4,
-					0x00FF00FF);
+					0x182c25FF);
 			current_y++;
 		}
 		tile_x++;
@@ -89,40 +93,40 @@ void	print_grid(t_scene *scene)
 	int		j;
 	int		i;
 
-	cloear(scene->mymlx->img, scene->mymlx);
+	cloear(scene, scene->mymlx->img);
 	i = 0;
 	while (i < scene->map_rows)
 	{
 		j = 0;
 		while (j < scene->map_cols)
 		{
-			tile_x = j * BLOCK;
-			tile_y = i * BLOCK;
 			if (scene->map[i][j] == '1')
-				rect(tile_x, tile_y, scene, 1);
-			if (scene->map[i][j] == '0' || scene->map[i][j] == 'N'
+				rect(j * BLOCK, i * BLOCK, scene, 1);
+			else if (scene->map[i][j] == 'V')
+				rect(j * BLOCK, i * BLOCK, scene, 2);
+			else if (scene->map[i][j] == '0' || scene->map[i][j] == 'N'
 				|| scene->map[i][j] == 'S' || scene->map[i][j] == 'W'
 				|| scene->map[i][j] == 'E')
-				rect(tile_x, tile_y, scene, 0);
+				rect(j * BLOCK, i * BLOCK, scene, 0);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	cloear(mlx_image_t *img, t_mymlx *mymlx)
+void	cloear(t_scene *scene, mlx_image_t *img)
 {
 	int	i;
 	int	j;
 
 	j = 0;
 	i = 0;
-	while (j < mymlx->num_col * BLOCK)
+	while (j < scene->map_cols * BLOCK)
 	{
 		i = 0;
-		while (i < mymlx->num_rows * BLOCK)
+		while (i < scene->map_rows * BLOCK)
 		{
-			mlx_put_pixel(img, j, i, 0x000000FF);
+			mlx_put_pixel(img, j * 0.4, i * 0.4, 0x000000FF);
 			i++;
 		}
 		j++;

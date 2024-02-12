@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 04:41:38 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 20:34:53 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 01:55:24 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,20 @@ double	get_short_distance(t_mymlx *mymlx)
 
 void	calculate_distance(t_mymlx *mymlx)
 {
-	if (mymlx->vertHitDistance > mymlx->horzHitDistance)
+	printf("v[%f][%f] \n", mymlx->vertHitDistance,mymlx->horzHitDistance);
+	if (fabs(mymlx->vertHitDistance) > fabs(mymlx->horzHitDistance))
 	{
 		mymlx->distance = mymlx->horzHitDistance;
 		mymlx->wallHitX = mymlx->horiwallhitX;
 		mymlx->wallHitY = mymlx->horiwallhitY;
-		mymlx->wasHitVertical = false;
+			mymlx->wasHitVertical = false;
 	}
 	else
 	{
 		mymlx->distance = mymlx->vertHitDistance;
 		mymlx->wallHitX = mymlx->VertwallhitX;
 		mymlx->wallHitY = mymlx->VertwallhitY;
-		mymlx->wasHitVertical = true;
+			mymlx->wasHitVertical = true;
 	}
 	drawline(mymlx);
 }

@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 09:52:38 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 23:41:10 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/11 23:33:39 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 mlx_texture_t	*text_so(t_scene *scene)
 {
 	scene->mymlx->so = mlx_load_png(scene->so_texture);
-	printf("this is SO texture %s\n", scene->so_texture);
 	if (scene->mymlx->so == NULL)
 	{
 		puts("No so texture\n");
@@ -31,8 +30,8 @@ int	get_texture(t_mymlx *mymlx, mlx_texture_t *texture, int offset_x, int y)
 	int	offset_y;
 	int	index;
 
-	offset_y = (y - 1 - (HEIGHT / 2) + (mymlx->s_3d.wallStripHeight / 2))
-		* ((double)32 / mymlx->s_3d.wallStripHeight);
+	offset_y = (y - 1 - (HEIGHT / 2) + (mymlx->s_3d.wallstripheight / 2))
+		* ((double)32 / mymlx->s_3d.wallstripheight);
 	index = (offset_y * 32 + offset_x) * 4;
 	return (get_rgba(texture->pixels[index], texture->pixels[index + 1],
 			texture->pixels[index + 2], texture->pixels[index + 3]));
