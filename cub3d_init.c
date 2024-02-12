@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 23:47:20 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 00:10:01 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 02:26:04 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	init_var(t_scene *scene)
 
 void	mlx_initiate(t_scene *scene)
 {
+	printf("rows  == %d\n", scene->map_rows);
+	printf("cols  == %d\n", scene->map_cols);
 	scene->mymlx->mlx = mlx_init(WIDTH, HEIGHT, "kalkabut", 0);
 	scene->mymlx->img = mlx_new_image(scene->mymlx->mlx, scene->map_cols
 			* BLOCK, scene->map_rows * BLOCK);

@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 14:03:20 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/12 02:22:07 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 04:03:51 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ typedef struct s_mymlx
 	double				VertwallhitY;
 	int					Vertwallcontent;
 	int					foundHorizWall;
-	int					horiwallhitX;
-	int					horiwallhitY;
+double				horiwallhitX;
+	double					horiwallhitY;
 	int					horzwallcontent;
 	double				horzHitDistance;
 	double				vertHitDistance;

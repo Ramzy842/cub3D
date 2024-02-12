@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 05:43:14 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 01:33:03 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 05:30:41 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	init_rendring(t_mymlx *mymlx)
 {
-	// mymlx->s_3d.distance = get_short_distance(mymlx);
+	mymlx->s_3d.distance = get_short_distance(mymlx);
 	mymlx->s_3d.new_distance = mymlx->distance * cos(mymlx->ray_angle
 			- mymlx->rotation_angle);
-	// printf("mymlx->s_3d.new_distance %f\n",mymlx->s_3d.new_distance);
-	printf("mymlx->h||vdistance %f\n",mymlx->distance);
 	mymlx->s_3d.projected_wall_height = (BLOCK / mymlx->s_3d.new_distance)
 		* ((WIDTH / 2) / tan(mymlx->fov_angle / 2));
 	mymlx->s_3d.wallstripheight = (int)mymlx->s_3d.projected_wall_height;

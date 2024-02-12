@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 22:17:26 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 23:37:10 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 05:32:56 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,11 @@ void	text_checker(mlx_texture_t *texture)
 		printf("texture size is incorrect\n");
 		exit(1);
 	}
+}
+
+void	calcul_distance(t_scene *scene)
+{
+	scene->mymlx->ray_angle += scene->mymlx->fov_angle / scene->mymlx->num_rays;
+	checkhori(scene);
+	checkvert(scene);
 }

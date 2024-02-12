@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 03:55:23 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 01:56:53 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 05:27:57 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	init_vertical(t_scene *scene)
 {
-	scene->mymlx->ray_angle = normalize_angle(scene->mymlx->ray_angle);
-	scene->mymlx->foundVertWall = false;
+	scene->mymlx->foundVertWall = 0;
 	scene->mymlx->VertwallhitX = scene->mymlx->x;
 	scene->mymlx->VertwallhitY = scene->mymlx->y;
 }
@@ -35,10 +34,9 @@ void	incr_vsteps(t_scene *scene)
 	if (scene->mymlx->RayFaceLeft)
 		scene->mymlx->xstep = -scene->mymlx->xstep;
 	scene->mymlx->ystep = BLOCK * tan(scene->mymlx->ray_angle);
-	if (scene->mymlx->RayFaceUp && scene->mymlx->ystep > 0)
-		scene->mymlx->ystep = -scene->mymlx->ystep;
-	else if (scene->mymlx->RayFaceDown && scene->mymlx->ystep < 0)
-		scene->mymlx->ystep = -scene->mymlx->ystep;
+	if ((scene->mymlx->RayFaceUp && scene->mymlx->ystep > 0)
+		|| (scene->mymlx->RayFaceDown && scene->mymlx->ystep < 0))
+		scene->mymlx->ystep *= -1;
 }
 
 void	vertical_functions(t_scene *scene)
@@ -56,9 +54,9 @@ void	isvertical(t_scene *scene)
 {
 	vertical_functions(scene);
 	while (scene->mymlx->nextVerttouchX >= 0
-		&& scene->mymlx->nextVerttouchX <= WIDTH
+		&& scene->mymlx->nextVerttouchX <= scene->map_cols * BLOCK
 		&& scene->mymlx->nextVerttouchY >= 0
-		&& scene->mymlx->nextVerttouchY <= HEIGHT)
+		&& scene->mymlx->nextVerttouchY <= scene->map_rows * BLOCK)
 	{
 		scene->mymlx->xtocheck = scene->mymlx->nextVerttouchX;
 		scene->mymlx->ytocheck = scene->mymlx->nextVerttouchY;

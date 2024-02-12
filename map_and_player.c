@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 11:04:38 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 02:09:41 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 05:32:24 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,41 +36,34 @@ int	map_has_wall(t_scene *scene, double x, double y)
 	int		mapgridindexy;
 	char	mapcontent;
 
-	if (x < 0 || x > WIDTH || y < 0 || y >= HEIGHT)
-		return (true);
 	mapgridindex = (int)floor(x / BLOCK);
 	mapgridindexy = (int)floor(y / BLOCK);
 	if (mapgridindex >= scene->map_cols)
-		return (true);
+		return (0);
 	if (mapgridindexy >= scene->map_rows)
-		return (true);
+		return (0);
 	mapcontent = scene->map[mapgridindexy][mapgridindex];
 	return (mapcontent == '1');
 }
-void checkhori(t_scene *scene)
-	{
-			if (scene->mymlx->foundHorizWall)
+
+void	checkhori(t_scene *scene)
+{
+	if (scene->mymlx->foundHorizWall)
 		scene->mymlx->horzHitDistance = distance_between_points(scene->mymlx->x,
 				scene->mymlx->y, scene->mymlx->horiwallhitX,
 				scene->mymlx->horiwallhitY);
-	 else
-	 	scene->mymlx->horzHitDistance = SIZE_MAX ;
-	}
-void checkvert(t_scene *scene)
-	{
+	else
+		scene->mymlx->horzHitDistance = __INT_MAX__;
+}
+
+void	checkvert(t_scene *scene)
+{
 	if (scene->mymlx->foundVertWall)
 		scene->mymlx->vertHitDistance = distance_between_points(scene->mymlx->x,
 				scene->mymlx->y, scene->mymlx->VertwallhitX,
 				scene->mymlx->VertwallhitY);
 	else
-		scene->mymlx->vertHitDistance = SIZE_MAX;
-		
-	}
-void	calcul_distance(t_scene *scene)
-{
-	scene->mymlx->ray_angle += scene->mymlx->fov_angle / scene->mymlx->num_rays;
-	checkhori( scene);
-checkvert(scene);
+		scene->mymlx->vertHitDistance = __INT_MAX__;
 }
 
 void	cast_all_rays(t_scene *scene)
@@ -82,6 +75,7 @@ void	cast_all_rays(t_scene *scene)
 		- (scene->mymlx->fov_angle / 2);
 	while (colum_id < scene->mymlx->num_rays)
 	{
+		scene->mymlx->ray_angle = normalize_angle(scene->mymlx->ray_angle);
 		ishorizontal(scene);
 		isvertical(scene);
 		calcul_distance(scene);

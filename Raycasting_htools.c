@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 04:11:32 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/10 10:06:14 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/12 05:26:44 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	incr_hsteps(t_scene *scene)
 	scene->mymlx->ystep = BLOCK;
 	if (scene->mymlx->RayFaceUp)
 		scene->mymlx->ystep = -scene->mymlx->ystep;
-	scene->mymlx->xstep = scene->mymlx->ystep / tan(scene->mymlx->ray_angle);
+	scene->mymlx->xstep = BLOCK / tan(scene->mymlx->ray_angle);
+	if ((scene->mymlx->RayFaceLeft && scene->mymlx->xstep > 0)
+		|| (scene->mymlx->RayFaceRight && scene->mymlx->xstep < 0))
+		scene->mymlx->xstep *= -1;
 	scene->mymlx->nexthorztouchX = scene->mymlx->Hxintercept;
 	scene->mymlx->nexthorztouchY = scene->mymlx->Hyintercept;
 }
@@ -51,9 +54,9 @@ void	ishorizontal(t_scene *scene)
 	init_horizontal(scene);
 	incr_hsteps(scene);
 	while (scene->mymlx->nexthorztouchX >= 0
-		&& scene->mymlx->nexthorztouchX <= WIDTH
+		&& scene->mymlx->nexthorztouchX < scene->map_cols * BLOCK
 		&& scene->mymlx->nexthorztouchY >= 0
-		&& scene->mymlx->nexthorztouchY <= HEIGHT)
+		&& scene->mymlx->nexthorztouchY < scene->map_rows * BLOCK)
 	{
 		scene->mymlx->xtocheck = scene->mymlx->nexthorztouchX;
 		scene->mymlx->ytocheck = scene->mymlx->nexthorztouchY;
