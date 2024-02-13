@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Raycasting_htools.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 04:11:32 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 08:52:30 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:29:28 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	ishorizontal(t_scene *scene)
 	init_horizontal(scene);
 	incr_hsteps(scene);
 	while (scene->mymlx->nexthorztouchx >= 0
-		&& scene->mymlx->nexthorztouchx < scene->map_cols * BLOCK
+		&& scene->mymlx->nexthorztouchx <= scene->map_cols * BLOCK
 		&& scene->mymlx->nexthorztouchy >= 0
-		&& scene->mymlx->nexthorztouchy < scene->map_rows * BLOCK)
+		&& scene->mymlx->nexthorztouchy <= scene->map_rows * BLOCK)
 	{
 		scene->mymlx->xtocheck = scene->mymlx->nexthorztouchx;
 		scene->mymlx->ytocheck = scene->mymlx->nexthorztouchy;

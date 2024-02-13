@@ -6,7 +6,7 @@
 /*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 22:29:09 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/10 23:53:06 by mbouderr         ###   ########.fr       */
+/*   Updated: 2024/02/13 18:25:34 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,14 @@ void	display_list(t_element *head)
 		}
 		current = current->next;
 	}
+}
+
+void	init_values(t_mymlx *mymlx)
+{
+	mymlx->xx1 = mymlx->x;
+	mymlx->yy1 = mymlx->y;
+	mymlx->xx2 = mymlx->wallhitx;
+	mymlx->yy2 = mymlx->wallhity;
+	mymlx->dx = (int)abs(mymlx->xx2 - mymlx->xx1);
+	mymlx->dy = (int)abs(mymlx->yy2 - mymlx->yy1);
 }

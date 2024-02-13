@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 09:52:42 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 08:52:30 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/13 18:25:09 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/cub3d.h"
-
-void	init_values(t_mymlx *mymlx)
-{
-	mymlx->xx1 = mymlx->x;
-	mymlx->yy1 = mymlx->y;
-	mymlx->xx2 = mymlx->wallhitx;
-	mymlx->yy2 = mymlx->wallhity;
-	mymlx->dx = (int)abs(mymlx->xx2 - mymlx->xx1);
-	mymlx->dy = (int)abs(mymlx->yy2 - mymlx->yy1);
-}
 
 void	dda1(t_mymlx *mymlx)
 {

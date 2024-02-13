@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:24:19 by rchahban          #+#    #+#             */
-/*   Updated: 2024/02/12 06:17:19 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/13 17:03:48 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	main(int argc, char **argv)
 	if (!valid_extension(argv[1]))
 		return (1);
 	scene_config = read_scene(argv[1]);
-	if (scene_config_is_empty(scene_config)
-		|| !process_scene_config(&scene, scene_config, &(scene.info_list)))
+	if (scene_config_is_empty(scene_config) || !process_scene_config(&scene,
+			scene_config, &(scene.info_list)))
 		return (1);
 	is_valid_scene_info = valid_scene_info(scene.scene_info, scene.info_list);
 	if (!is_valid_scene_info)

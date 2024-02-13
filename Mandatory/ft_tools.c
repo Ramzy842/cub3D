@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tools.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 04:41:38 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 08:52:30 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/13 18:56:17 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,4 @@ void	calculate_distance(t_mymlx *mymlx)
 		mymlx->wallhity = mymlx->vertwallhity;
 		mymlx->washitvertical = true;
 	}
-	drawline(mymlx);
 }

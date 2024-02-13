@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Ray2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 21:50:59 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 08:51:29 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/13 17:07:45 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	rect(int tile_x, int tile_y, t_scene *scene, int value)
 		{
 			if (value == 2)
 				mlx_put_pixel(scene->mymlx->img, tile_x * 0.4, current_y * 0.4,
-					0x1E453EFF);
+					0x1E453E99);
 			else if (value == 1)
 				mlx_put_pixel(scene->mymlx->img, tile_x * 0.4, current_y * 0.4,
-					0x0099FFFF);
+					0x0F99FF97);
 			else
 				mlx_put_pixel(scene->mymlx->img, tile_x * 0.4, current_y * 0.4,
 					0x182c25FF);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Raycasting_vtools.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 03:55:23 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 08:52:30 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:24:16 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_vertical(t_scene *scene)
 
 void	find_intercept(t_scene *scene)
 {
-	scene->mymlx->vxintercept = (int)(scene->mymlx->x / BLOCK) * BLOCK;
+	scene->mymlx->vxintercept = floor(scene->mymlx->x / BLOCK) * BLOCK;
 	if (scene->mymlx->rayfaceright)
 		scene->mymlx->vxintercept += BLOCK;
 	scene->mymlx->vyintercept = scene->mymlx->y + (scene->mymlx->vxintercept
@@ -67,7 +67,7 @@ void	isvertical(t_scene *scene)
 			scene->mymlx->vertwallhitx = scene->mymlx->nextverttouchx;
 			scene->mymlx->vertwallhity = scene->mymlx->nextverttouchy;
 			scene->mymlx->foundvertwall = true;
-			break ;
+			return ;
 		}
 		else
 		{

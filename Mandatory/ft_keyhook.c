@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_keyhook.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchahban <rchahban@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mbouderr <mbouderr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 04:37:46 by mbouderr          #+#    #+#             */
-/*   Updated: 2024/02/12 07:05:56 by rchahban         ###   ########.fr       */
+/*   Updated: 2024/02/13 18:32:30 by mbouderr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	is_move_allowed(t_scene *scene)
 			&& scene->map[(int)scene->mymlx->y
 			/ BLOCK][(int)scene->mymlx->xisallowed / BLOCK] != '1'
 			&& scene->map[(int)scene->mymlx->yisallowed
-		/ BLOCK][(int)scene->mymlx->x / BLOCK] != '1');
+			/ BLOCK][(int)scene->mymlx->x / BLOCK] != '1');
 }
 
 void	rightandleft(t_scene *scene)
@@ -55,14 +55,14 @@ void	rightandleft(t_scene *scene)
 	if (mlx_is_key_down(scene->mymlx->mlx, MLX_KEY_LEFT))
 	{
 		scene->mymlx->rotation_angle -= 0.05;
-		scene->mymlx->rotation_angle = 
-			normalize_angle(scene->mymlx->rotation_angle);
+		scene->mymlx->rotation_angle 
+			= normalize_angle(scene->mymlx->rotation_angle);
 	}
 	if (mlx_is_key_down(scene->mymlx->mlx, MLX_KEY_RIGHT))
 	{
 		scene->mymlx->rotation_angle += 0.05;
-		scene->mymlx->rotation_angle = 
-			normalize_angle(scene->mymlx->rotation_angle);
+		scene->mymlx->rotation_angle 
+			= normalize_angle(scene->mymlx->rotation_angle);
 	}
 	if (is_move_allowed(scene))
 	{
@@ -80,7 +80,5 @@ void	ft_hook(void *param)
 	scene->mymlx->xisallowed = scene->mymlx->x;
 	hook_awsd(scene);
 	rightandleft(scene);
-	print_grid(scene);
 	cast_all_rays(scene);
-	drawcircle(scene->mymlx);
 }
